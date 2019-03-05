@@ -52,8 +52,10 @@ class SecondViewController: UIViewController  {
             
             
             
-            self.reasonTextView.text = ""
-            self.suggetTextView.text = ""
+            self.reasonTextView.text = "原因"
+            self.suggetTextView.text = "建議"
+            self.aSlider.value = 60
+            self.scoreLabel.text = "60"
             
             /*************
              *傳送滿意度資料*

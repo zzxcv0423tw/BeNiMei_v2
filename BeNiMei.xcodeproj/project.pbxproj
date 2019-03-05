@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A09AF4864AFB1CFDCF7F727 /* Pods_BeNiMei.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FCB0BF0E63281E85259825 /* Pods_BeNiMei.framework */; };
+		663FC0CF222E68A20065A771 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 663FC0CC222E68A20065A771 /* GoogleService-Info.plist */; };
 		6AFD88D8B3CBF7BCBF6E854B /* Pods_BeNiMeiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E56B09F622248B25ABEE3B /* Pods_BeNiMeiTests.framework */; };
 		AB0FE70621F06517006EA2B4 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0FE70521F06517006EA2B4 /* HistoryViewController.swift */; };
 		AB0FE70821F07648006EA2B4 /* CustomHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0FE70721F07648006EA2B4 /* CustomHistoryTableViewCell.swift */; };
@@ -17,7 +18,6 @@
 		AB4A353021FB0467001A75E8 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4A352F21FB0467001A75E8 /* AddItemViewController.swift */; };
 		AB512D7221EF9348000EEC3C /* CustomCheckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB512D7121EF9348000EEC3C /* CustomCheckTableViewCell.swift */; };
 		AB5F69A121F8AC6300B1DBBD /* ServiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F69A021F8AC6300B1DBBD /* ServiceCollectionViewCell.swift */; };
-		ABA5B43821E73EAF00FA6881 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABA5B43721E73EAF00FA6881 /* GoogleService-Info.plist */; };
 		ABA9446A21E794A200E80706 /* CustomerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA9446921E794A200E80706 /* CustomerInfo.swift */; };
 		ABB6A0E421FC6C6600EBC572 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB6A0E321FC6C6600EBC572 /* EditItemViewController.swift */; };
 		ABB6A0E821FC86E800EBC572 /* EditItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB6A0E721FC86E800EBC572 /* EditItemTableViewCell.swift */; };
@@ -37,6 +37,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		66EF55C9222E607C00ADE79D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66EF55C4222E607B00ADE79D /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		66EF55CB222E607C00ADE79D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66EF55C4222E607B00ADE79D /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
 		ABECE1F921E135450011AB1D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ABECE1DA21E135440011AB1D /* Project object */;
@@ -58,6 +72,8 @@
 		2A6DA26345289D3B46ECB3C6 /* Pods-BeNiMeiUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiUITests/Pods-BeNiMeiUITests.release.xcconfig"; sourceTree = "<group>"; };
 		512159B24367FE2DF7FC9CFA /* Pods_BeNiMeiUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeNiMeiUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		537B78791E3252339A4BA031 /* Pods-BeNiMei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMei/Pods-BeNiMei.debug.xcconfig"; sourceTree = "<group>"; };
+		663FC0CC222E68A20065A771 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		66EF55C4222E607B00ADE79D /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		97FCB0BF0E63281E85259825 /* Pods_BeNiMei.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeNiMei.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0FE70521F06517006EA2B4 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		AB0FE70721F07648006EA2B4 /* CustomHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -67,7 +83,6 @@
 		AB4A352F21FB0467001A75E8 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		AB512D7121EF9348000EEC3C /* CustomCheckTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCheckTableViewCell.swift; sourceTree = "<group>"; };
 		AB5F69A021F8AC6300B1DBBD /* ServiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCollectionViewCell.swift; sourceTree = "<group>"; };
-		ABA5B43721E73EAF00FA6881 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABA9446921E794A200E80706 /* CustomerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfo.swift; sourceTree = "<group>"; };
 		ABB6A0E321FC6C6600EBC572 /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		ABB6A0E721FC86E800EBC572 /* EditItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -133,6 +148,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		66EF55C5222E607B00ADE79D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				66EF55CA222E607C00ADE79D /* Charts.framework */,
+				66EF55CC222E607C00ADE79D /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ABECE1D921E135440011AB1D = {
 			isa = PBXGroup;
 			children = (
@@ -176,11 +200,12 @@
 				AB0FE70721F07648006EA2B4 /* CustomHistoryTableViewCell.swift */,
 				AB5F69A021F8AC6300B1DBBD /* ServiceCollectionViewCell.swift */,
 				ABECE1F321E135450011AB1D /* Info.plist */,
-				ABA5B43721E73EAF00FA6881 /* GoogleService-Info.plist */,
+				663FC0CC222E68A20065A771 /* GoogleService-Info.plist */,
 				ABC8896E2226FCF100A1D5E9 /* SatisfactionTableViewCell.swift */,
 				ABC889702226FD4100A1D5E9 /* SatisfactionViewController.swift */,
 				AB47F24D222840C500BA2946 /* SignUpViewController.swift */,
 				AB47F24F22284B8800BA2946 /* LogInViewController.swift */,
+				66EF55C4222E607B00ADE79D /* Charts.xcodeproj */,
 			);
 			path = BeNiMei;
 			sourceTree = "<group>";
@@ -310,6 +335,12 @@
 			mainGroup = ABECE1D921E135440011AB1D;
 			productRefGroup = ABECE1E321E135440011AB1D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 66EF55C5222E607B00ADE79D /* Products */;
+					ProjectRef = 66EF55C4222E607B00ADE79D /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				ABECE1E121E135440011AB1D /* BeNiMei */,
@@ -319,13 +350,30 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		66EF55CA222E607C00ADE79D /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 66EF55C9222E607C00ADE79D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		66EF55CC222E607C00ADE79D /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = 66EF55CB222E607C00ADE79D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		ABECE1E021E135440011AB1D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				ABECE1F221E135450011AB1D /* LaunchScreen.storyboard in Resources */,
-				ABA5B43821E73EAF00FA6881 /* GoogleService-Info.plist in Resources */,
+				663FC0CF222E68A20065A771 /* GoogleService-Info.plist in Resources */,
 				ABECE1EF21E135450011AB1D /* Assets.xcassets in Resources */,
 				ABECE1ED21E135440011AB1D /* Main.storyboard in Resources */,
 			);
@@ -372,11 +420,10 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BeNiMei/Pods-BeNiMei-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-BeNiMei/Pods-BeNiMei-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -384,14 +431,13 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BeNiMei/Pods-BeNiMei-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeNiMei/Pods-BeNiMei-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A09232CB51E07E32AD03F96F /* [CP] Check Pods Manifest.lock */ = {
