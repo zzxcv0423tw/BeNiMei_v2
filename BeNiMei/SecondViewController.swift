@@ -76,6 +76,9 @@ class SecondViewController: UIViewController  {
        scoreLabel.text = String(Int(aSlider.value))
         
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)
+        
+        
+        self.hideKeyboardWhenTappedAround() 
     }
 
 }

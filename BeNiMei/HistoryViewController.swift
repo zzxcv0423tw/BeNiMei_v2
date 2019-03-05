@@ -61,6 +61,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.hideKeyboardWhenTappedAround()
+        
         dataLabel.backgroundColor =     UIColor(patternImage: UIImage(named: "bg_150_200")!)
         
         let refCustomer : DatabaseReference! = Database.database().reference().child("customer")

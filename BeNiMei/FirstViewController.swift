@@ -394,4 +394,3 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
     }
 }
-

@@ -24,6 +24,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "新增項目"
+        self.hideKeyboardWhenTappedAround() 
         addServiceImageView.isUserInteractionEnabled = true
         addServiceImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addServiceImage)))
         
@@ -277,16 +278,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 extension String {
     var isInt: Bool {

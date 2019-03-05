@@ -32,6 +32,7 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "項目列表"
+        self.hideKeyboardWhenTappedAround() 
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(callAddItemView))
         self.navigationItem.rightBarButtonItem = addButton
