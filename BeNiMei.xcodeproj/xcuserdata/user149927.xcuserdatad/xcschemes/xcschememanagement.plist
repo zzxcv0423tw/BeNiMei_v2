@@ -7,7 +7,25 @@
 		<key>BeNiMei.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>13</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>ABECE1E121E135440011AB1D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABECE1F721E135450011AB1D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABECE20221E135450011AB1D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
