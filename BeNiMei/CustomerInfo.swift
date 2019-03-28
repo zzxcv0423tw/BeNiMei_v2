@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     
     @IBOutlet weak var cuNameF: UITextField!
@@ -17,9 +17,11 @@ class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     @IBOutlet weak var cuDateF: UIDatePicker!
     @IBOutlet weak var cuBeauticianF: UITextField!
     @IBOutlet weak var selectBeauticianButton: UIButton!
+    @IBOutlet weak var uploadCustomerImageView: UIImageView!
     
     @IBOutlet weak var dataLabel: UILabel!
     
+    var hasImageFlag : Int8 = 0
     var orderedNameArray = [String]()
     var orderePriceArray = [String]()
     var beauticians = ["AAA","BBB","CCC"]
@@ -33,6 +35,10 @@ class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         dateValueS = dateValue.string(from: cuDateF.date) // 更新Text Field的內容
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if self.hasImageFlag == 0 {
+            self.uploadCustomerImageView.image = UIImage(named: "noun_Lost_file")
+        }
         let intArray = orderePriceArray.map { Int($0)!} // [11, 43, 26, 11, 45, 40]
         if segue.identifier == "Send" {
             let secondVC = segue.destination as! CheckService
@@ -42,10 +48,16 @@ class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
             secondVC.cuDate = dateValueS
             secondVC.orderedNameArrayc = orderedNameArray
             secondVC.priceArrayc = intArray
+            secondVC.cuImageView = uploadCustomerImageView
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
+        
+        uploadCustomerImageView.isUserInteractionEnabled = true
+        uploadCustomerImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(uploadCustomerImage)))
+        
         dataLabel.backgroundColor = 	UIColor(patternImage: UIImage(named: "bg_150_200")!)
         beauticians = []
         let ref  = Database.database().reference().child("beautician")
@@ -100,6 +112,34 @@ class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         pickerSelected = beauticians[row]
+    }
+    @IBAction func uploadCustomerImage(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        //picker.allowsEditing = true
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFormPicker: UIImage?
+        
+        if let editedImage = info[.editedImage] as? UIImage {
+            selectedImageFormPicker = editedImage
+        }
+        else if let originalImage = info[.originalImage] as? UIImage{
+            selectedImageFormPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFormPicker{
+            uploadCustomerImageView.image = selectedImage
+            hasImageFlag = 1
+        }
+        
+        dismiss(animated: true, completion: nil)
+        
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 

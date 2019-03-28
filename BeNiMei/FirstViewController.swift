@@ -91,10 +91,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)
         
         addPerchaseCollectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        addPerchaseCollectionViewLayout.itemSize = CGSize(width: fullScreenSize.width/2-20, height: fullScreenSize.height/2-100)
+        addPerchaseCollectionViewLayout.itemSize = CGSize(width: fullScreenSize.width/2-20, height: fullScreenSize.height/2-40)
         addPerchaseCollectionViewLayout.minimumLineSpacing = 5
         myCollectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        myCollectionViewLayout.itemSize = CGSize(width: fullScreenSize.width/2-20, height: fullScreenSize.height/2-100) //設定cell的size
+        myCollectionViewLayout.itemSize = CGSize(width: fullScreenSize.width/2-20, height: fullScreenSize.height/2-40) //設定cell的size
         myCollectionViewLayout.minimumLineSpacing = 5 //設定cell與cell間的縱距
         
     }

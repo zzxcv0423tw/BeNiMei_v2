@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A09AF4864AFB1CFDCF7F727 /* Pods_BeNiMei.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FCB0BF0E63281E85259825 /* Pods_BeNiMei.framework */; };
+		615EB829B67D4D175620F2B0 /* libPods-BeNiMeiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7382D1501509D61E7365F1 /* libPods-BeNiMeiTests.a */; };
 		663FC0CF222E68A20065A771 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 663FC0CC222E68A20065A771 /* GoogleService-Info.plist */; };
-		6AFD88D8B3CBF7BCBF6E854B /* Pods_BeNiMeiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E56B09F622248B25ABEE3B /* Pods_BeNiMeiTests.framework */; };
 		AB0FE70621F06517006EA2B4 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0FE70521F06517006EA2B4 /* HistoryViewController.swift */; };
 		AB0FE70821F07648006EA2B4 /* CustomHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0FE70721F07648006EA2B4 /* CustomHistoryTableViewCell.swift */; };
 		AB34234821E843EF00412BF4 /* CheckService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB34234721E843EF00412BF4 /* CheckService.swift */; };
@@ -33,7 +32,8 @@
 		ABECE20821E135450011AB1D /* BeNiMeiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABECE20721E135450011AB1D /* BeNiMeiUITests.swift */; };
 		ABEEFB922226AD2E00EF8A01 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEEFB912226AD2E00EF8A01 /* StatisticsViewController.swift */; };
 		ABF37C8D2224FD8F006B91AA /* AddPerchaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF37C8C2224FD8F006B91AA /* AddPerchaseCollectionViewCell.swift */; };
-		BE5514E8BAD0C03763773DF0 /* Pods_BeNiMeiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 512159B24367FE2DF7FC9CFA /* Pods_BeNiMeiUITests.framework */; };
+		D0D304A3C67FC256B898CF25 /* libPods-BeNiMei.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0298AB0B249D64D43293B88 /* libPods-BeNiMei.a */; };
+		E05D98A785D77F4EF701B7AB /* libPods-BeNiMeiUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7465BE7CEA295D03383CDF4A /* libPods-BeNiMeiUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,12 +69,15 @@
 
 /* Begin PBXFileReference section */
 		079B06393EEA9E726706059B /* Pods-BeNiMeiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiTests/Pods-BeNiMeiTests.release.xcconfig"; sourceTree = "<group>"; };
+		18B26B7E2230257C00406544 /* manifest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = manifest.plist; path = ../manifest.plist; sourceTree = "<group>"; };
 		2A6DA26345289D3B46ECB3C6 /* Pods-BeNiMeiUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiUITests/Pods-BeNiMeiUITests.release.xcconfig"; sourceTree = "<group>"; };
-		512159B24367FE2DF7FC9CFA /* Pods_BeNiMeiUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeNiMeiUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		537B78791E3252339A4BA031 /* Pods-BeNiMei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMei/Pods-BeNiMei.debug.xcconfig"; sourceTree = "<group>"; };
+		63EC6E84D7ACA13357FBB0C7 /* Pods-BeNiMeiTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiTests/Pods-BeNiMeiTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		663FC0CC222E68A20065A771 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		66EF55C4222E607B00ADE79D /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
-		97FCB0BF0E63281E85259825 /* Pods_BeNiMei.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeNiMei.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7465BE7CEA295D03383CDF4A /* libPods-BeNiMeiUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeNiMeiUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E92B3D52316BCC7617C7DD6 /* Pods-BeNiMeiUITests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiUITests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiUITests/Pods-BeNiMeiUITests.adhoc.xcconfig"; sourceTree = "<group>"; };
+		A0298AB0B249D64D43293B88 /* libPods-BeNiMei.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeNiMei.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0FE70521F06517006EA2B4 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		AB0FE70721F07648006EA2B4 /* CustomHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		AB34234721E843EF00412BF4 /* CheckService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckService.swift; sourceTree = "<group>"; };
@@ -105,9 +108,10 @@
 		ABEEFB912226AD2E00EF8A01 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		ABF37C8C2224FD8F006B91AA /* AddPerchaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPerchaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		C0FAAF506DF15FB6A66DFEC0 /* Pods-BeNiMeiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiTests/Pods-BeNiMeiTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C3E56B09F622248B25ABEE3B /* Pods_BeNiMeiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeNiMeiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AB5BE9DAC93715AA633252 /* Pods-BeNiMeiUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiUITests/Pods-BeNiMeiUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		DB7382D1501509D61E7365F1 /* libPods-BeNiMeiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeNiMeiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFE5CD3A593776009568EF89 /* Pods-BeNiMei.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMei.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMei/Pods-BeNiMei.release.xcconfig"; sourceTree = "<group>"; };
+		FB7683AD854F5A2ACDD84571 /* Pods-BeNiMei.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMei.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMei/Pods-BeNiMei.adhoc.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A09AF4864AFB1CFDCF7F727 /* Pods_BeNiMei.framework in Frameworks */,
+				D0D304A3C67FC256B898CF25 /* libPods-BeNiMei.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AFD88D8B3CBF7BCBF6E854B /* Pods_BeNiMeiTests.framework in Frameworks */,
+				615EB829B67D4D175620F2B0 /* libPods-BeNiMeiTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE5514E8BAD0C03763773DF0 /* Pods_BeNiMeiUITests.framework in Frameworks */,
+				E05D98A785D77F4EF701B7AB /* libPods-BeNiMeiUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,9 +145,9 @@
 		0B4C321A0CF5C8A34A24364B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				97FCB0BF0E63281E85259825 /* Pods_BeNiMei.framework */,
-				C3E56B09F622248B25ABEE3B /* Pods_BeNiMeiTests.framework */,
-				512159B24367FE2DF7FC9CFA /* Pods_BeNiMeiUITests.framework */,
+				A0298AB0B249D64D43293B88 /* libPods-BeNiMei.a */,
+				DB7382D1501509D61E7365F1 /* libPods-BeNiMeiTests.a */,
+				7465BE7CEA295D03383CDF4A /* libPods-BeNiMeiUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,6 +164,7 @@
 		ABECE1D921E135440011AB1D = {
 			isa = PBXGroup;
 			children = (
+				18B26B7E2230257C00406544 /* manifest.plist */,
 				ABECE1E421E135440011AB1D /* BeNiMei */,
 				ABECE1FB21E135450011AB1D /* BeNiMeiTests */,
 				ABECE20621E135450011AB1D /* BeNiMeiUITests */,
@@ -237,6 +242,9 @@
 				079B06393EEA9E726706059B /* Pods-BeNiMeiTests.release.xcconfig */,
 				D7AB5BE9DAC93715AA633252 /* Pods-BeNiMeiUITests.debug.xcconfig */,
 				2A6DA26345289D3B46ECB3C6 /* Pods-BeNiMeiUITests.release.xcconfig */,
+				FB7683AD854F5A2ACDD84571 /* Pods-BeNiMei.adhoc.xcconfig */,
+				63EC6E84D7ACA13357FBB0C7 /* Pods-BeNiMeiTests.adhoc.xcconfig */,
+				7E92B3D52316BCC7617C7DD6 /* Pods-BeNiMeiUITests.adhoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -252,7 +260,6 @@
 				ABECE1DE21E135440011AB1D /* Sources */,
 				ABECE1DF21E135440011AB1D /* Frameworks */,
 				ABECE1E021E135440011AB1D /* Resources */,
-				99459FDB9977228E857A07AF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -414,32 +421,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		99459FDB9977228E857A07AF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BeNiMei/Pods-BeNiMei-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeNiMei/Pods-BeNiMei-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A09232CB51E07E32AD03F96F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -555,6 +536,124 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		18B26B782230074900406544 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ba Hua Xie (6C5DSTZF9S)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = AdHoc;
+		};
+		18B26B792230074900406544 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB7683AD854F5A2ACDD84571 /* Pods-BeNiMei.adhoc.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ba Hua Xie (6C5DSTZF9S)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 6C5DSTZF9S;
+				INFOPLIST_FILE = BeNiMei/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SlashTeam.BeNiMei;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_Jin_Terry;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = AdHoc;
+		};
+		18B26B7A2230074900406544 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63EC6E84D7ACA13357FBB0C7 /* Pods-BeNiMeiTests.adhoc.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BeNiMeiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SlashTeam.BeNiMeiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeNiMei.app/BeNiMei";
+			};
+			name = AdHoc;
+		};
+		18B26B7B2230074900406544 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E92B3D52316BCC7617C7DD6 /* Pods-BeNiMeiUITests.adhoc.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BeNiMeiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SlashTeam.BeNiMeiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BeNiMei;
+			};
+			name = AdHoc;
+		};
 		ABECE20A21E135450011AB1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -587,7 +686,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ba Hua Xie (6C5DSTZF9S)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -606,7 +705,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -648,7 +747,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ba Hua Xie (6C5DSTZF9S)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -661,7 +760,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -676,15 +775,18 @@
 			baseConfigurationReference = 537B78791E3252339A4BA031 /* Pods-BeNiMei.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ba Hua Xie (6C5DSTZF9S)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6C5DSTZF9S;
 				INFOPLIST_FILE = BeNiMei/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SlashTeam.BeNiMei;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_Jin_Terry;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -695,15 +797,18 @@
 			baseConfigurationReference = DFE5CD3A593776009568EF89 /* Pods-BeNiMei.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ba Hua Xie (6C5DSTZF9S)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6C5DSTZF9S;
 				INFOPLIST_FILE = BeNiMei/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SlashTeam.BeNiMei;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_Jin_Terry;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -799,6 +904,7 @@
 			buildConfigurations = (
 				ABECE20A21E135450011AB1D /* Debug */,
 				ABECE20B21E135450011AB1D /* Release */,
+				18B26B782230074900406544 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -808,6 +914,7 @@
 			buildConfigurations = (
 				ABECE20D21E135450011AB1D /* Debug */,
 				ABECE20E21E135450011AB1D /* Release */,
+				18B26B792230074900406544 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -817,6 +924,7 @@
 			buildConfigurations = (
 				ABECE21021E135450011AB1D /* Debug */,
 				ABECE21121E135450011AB1D /* Release */,
+				18B26B7A2230074900406544 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -826,6 +934,7 @@
 			buildConfigurations = (
 				ABECE21321E135450011AB1D /* Debug */,
 				ABECE21421E135450011AB1D /* Release */,
+				18B26B7B2230074900406544 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

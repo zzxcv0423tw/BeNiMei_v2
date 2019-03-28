@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class SecondViewController: UIViewController  {
+class SecondViewController: UIViewController, UITextViewDelegate  {
 
     @IBOutlet weak var aSlider: UISlider!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -77,9 +77,26 @@ class SecondViewController: UIViewController  {
         
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)
         
+        reasonTextView.delegate = self
+        suggetTextView.delegate = self
         
         self.hideKeyboardWhenTappedAround() 
     }
-
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "原因" || textView.text == "建議" {
+            textView.text = ""
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        if textView.text == "" {
+            if textView.tag == 0 {
+                textView.text = "原因"
+            }
+            else if textView.tag == 1 {
+                textView.text = "建議"
+            }
+        }
+    }
 }
 

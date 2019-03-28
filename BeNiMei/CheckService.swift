@@ -18,6 +18,7 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
     var cuPhone: String = ""
     var cuDate: String = ""
     var cuBeautician: String = ""
+    var cuImageView: UIImageView = UIImageView()
     
     var ref: DatabaseReference! = Database.database().reference()
     var refWriteDBFild: DatabaseReference! = Database.database().reference().child("customer")
@@ -26,31 +27,57 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
     var priceArrayc = [0]
     //submit前確認
     @IBAction func alert(_ sender: Any) {
+        
+        let uniqueString = NSUUID().uuidString
+        
         let alert = UIAlertController(title: "確認", message: "確定送出？", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "送出", style: .default, handler: { action in
             
-            var customerInfo: [String : AnyObject] = [String : AnyObject]()
-            customerInfo["name"] = self.cuName as AnyObject
-            customerInfo["phone"] = self.cuPhone as AnyObject
-            customerInfo["date"] = self.cuDate as AnyObject
-            customerInfo["beautician"] = self.cuBeautician as AnyObject
-            customerInfo["service"] = self.orderedNameArrayc as AnyObject
-            customerInfo["price"] = self.totalPrice.text as AnyObject
-            var priceArraycStr = self.priceArrayc.map { String($0) }
-            customerInfo["eachPrice"] = priceArraycStr as AnyObject
-            
-            let childRef = self.refWriteDBFild.childByAutoId() // 隨機生成的節點唯一識別碼，用來當儲存時的key值
-            let customerInfoReference = self.refWriteDBFild.child(childRef.key ?? "000")
-            
-            customerInfoReference.updateChildValues(customerInfo) { (err, reff) in
-                if err != nil{
-                    print("err： \(err!)")
-                    return
-                }
-                
-                print(reff.description())
+            var imageUrl : String = String()
+            let storageRef = Storage.storage().reference().child("image").child("cu_\(uniqueString).png")
+            if let uploadData = self.cuImageView.image!.pngData(){
+                storageRef.putData(uploadData, metadata: nil, completion: {(metadata , pError) in
+                    if pError != nil{
+                        print(pError as Any)
+                        return
+                    }
+                    storageRef.downloadURL(completion: { (url, error) in
+                        if let error = error{
+                            print(error)
+                        }
+                        else{
+                            imageUrl = url?.absoluteString ?? "000"
+                            
+                            var customerInfo: [String : AnyObject] = [String : AnyObject]()
+                            customerInfo["name"] = self.cuName as AnyObject
+                            customerInfo["phone"] = self.cuPhone as AnyObject
+                            customerInfo["date"] = self.cuDate as AnyObject
+                            customerInfo["beautician"] = self.cuBeautician as AnyObject
+                            customerInfo["service"] = self.orderedNameArrayc as AnyObject
+                            customerInfo["price"] = self.totalPrice.text as AnyObject
+                            var priceArraycStr = self.priceArrayc.map { String($0) }
+                            customerInfo["eachPrice"] = priceArraycStr as AnyObject
+                            customerInfo["imageUrl"] = imageUrl as AnyObject
+                            customerInfo["imagePath"] = ("cu_\(uniqueString).png") as AnyObject
+                            
+                            let childRef = self.refWriteDBFild.childByAutoId() // 隨機生成的節點唯一識別碼，用來當儲存時的key值
+                            let customerInfoReference = self.refWriteDBFild.child(childRef.key ?? "000")
+                            
+                            customerInfoReference.updateChildValues(customerInfo) { (err, reff) in
+                                if err != nil{
+                                    print("err： \(err!)")
+                                    return
+                                }
+                                
+                                print(reff.description())
+                            }
+                        }
+                    })
+                })
             }
+            
+            
             
             
                 //回到根目錄

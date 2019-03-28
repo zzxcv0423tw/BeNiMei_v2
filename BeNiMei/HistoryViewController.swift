@@ -17,6 +17,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var timePeriodStartButton: UIButton!
     @IBOutlet weak var timePeriodEndButton: UIButton!
     @IBOutlet weak var dataLabel: UILabel!
+    @IBOutlet weak var showImageView: UIImageView!
     
     struct cuInfo {
         var name = String()
@@ -25,6 +26,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         var service = String()
         var price = String()
         var beautician = String()
+        var imagePath = String()
     }
     
     var customerInfos : [cuInfo] = [cuInfo]()
@@ -53,6 +55,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.service.text = filteredCuInfos[indexPath.row].service
         cell.price.text = filteredCuInfos[indexPath.row].price
         cell.beautician.text = filteredCuInfos[indexPath.row].beautician
+        cell.showPictureButton.tag = indexPath.row
+        cell.showPictureButton.addTarget(self, action: #selector(showImage), for: .touchUpInside)
         return cell
         
     }
@@ -67,7 +71,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let refCustomer : DatabaseReference! = Database.database().reference().child("customer")
         refCustomer.queryOrderedByKey().observe(.childAdded, with: {(snapshot) in
-            var customerItem : cuInfo = cuInfo(name: "", phone: "", date: "", service: "", price: "", beautician: "")
+            var customerItem : cuInfo = cuInfo(name: "", phone: "", date: "", service: "", price: "", beautician: "", imagePath: "")
             if let dictionaryData = snapshot.value as? [String:AnyObject]{
                 
                 var serviceItemArrayStr = String()
@@ -87,6 +91,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         customerItem.price = item.value as! String
                     case "beautician":
                         customerItem.beautician = item.value as! String
+                    case "imagePath":
+                        customerItem.imagePath = item.value as! String
                     default:
                         break
                     }
@@ -96,6 +102,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.filteredCuInfos = self.customerInfos
             self.aTableView.reloadData()
         })
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        showImageView.addGestureRecognizer(tapGesture)
+        showImageView.isUserInteractionEnabled = true
         
         // Do any additional setup after loading the view.
         let navBackgroundImage = UIImage(named: "topbar_500_120")
@@ -201,14 +211,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     @IBAction func timePeriodStartButtonClick(_ sender: Any) {
         let vc = UIViewController()
-        vc.preferredContentSize = CGSize(width: 250, height: 300)
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 250, height: 300))
+        vc.preferredContentSize = CGSize(width: 400, height: 300)
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 400, height: 300))
         datePicker.locale = Locale(identifier: "zh_TW")
-        datePicker.datePickerMode = UIDatePicker.Mode.date
+        //datePicker.datePickerMode = UIDatePicker.Mode.date
         //datePicker.minuteInterval = 10
         vc.view.addSubview(datePicker)
         
-        let alert = UIAlertController(title: "請選擇開始時間", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "請選擇開始時間", message: nil, preferredStyle: .actionSheet)
         alert.setValue(vc, forKey: "contentViewController")
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "確認", style: .default, handler: { (action) in
@@ -247,14 +257,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     @IBAction func timePeriodEndButtonClick(_ sender: Any) {
         let vc = UIViewController()
-        vc.preferredContentSize = CGSize(width: 250, height: 300)
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 250, height: 300))
+        vc.preferredContentSize = CGSize(width: 400, height: 300)
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 400, height: 300))
         datePicker.locale = Locale(identifier: "zh_TW")
-        datePicker.datePickerMode = UIDatePicker.Mode.date
+        //datePicker.datePickerMode = UIDatePicker.Mode.date
         //datePicker.minuteInterval = 10
         vc.view.addSubview(datePicker)
         
-        let alert = UIAlertController(title: "請選擇結束時間", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "請選擇結束時間", message: nil, preferredStyle: .actionSheet)
         alert.setValue(vc, forKey: "contentViewController")
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "確認", style: .default, handler: { (action) in
@@ -295,6 +305,24 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @objc func callSatisfactionView(){
         if let controller = storyboard?.instantiateViewController(withIdentifier: "satisfaction") as? SatisfactionViewController{
             navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    @objc func showImage(sender: UIButton){
+        let pathRef = Storage.storage().reference().child("image/\(self.customerInfos[sender.tag].imagePath)")
+        pathRef.getData(maxSize: 1*5120*5120) { (data, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                self.showImageView.isHidden = false
+                self.showImageView.image = UIImage(data:data!)
+            }
+        }
+    }
+    @objc func imageTapped(gesture: UIGestureRecognizer){
+        if let imageView = gesture.view as? UIImageView{
+            showImageView.isHidden = true
+            showImageView.image = nil
         }
     }
 }

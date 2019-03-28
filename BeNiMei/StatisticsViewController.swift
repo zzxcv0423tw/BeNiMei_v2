@@ -119,14 +119,14 @@ class StatisticsViewController: UIViewController {
 
     @IBAction func startTimeButton(_ sender: Any) {
         let vc = UIViewController()
-        vc.preferredContentSize = CGSize(width: 250, height: 300)
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 250, height: 300))
+        vc.preferredContentSize = CGSize(width: 400, height: 300)
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 400, height: 300))
         datePicker.locale = Locale(identifier: "zh_TW")
-        datePicker.datePickerMode = UIDatePicker.Mode.date
+        //datePicker.datePickerMode = UIDatePicker.Mode.date
         //datePicker.minuteInterval = 10
         vc.view.addSubview(datePicker)
         
-        let alert = UIAlertController(title: "請選擇開始時間", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "請選擇開始時間", message: nil, preferredStyle: .actionSheet)
         alert.setValue(vc, forKey: "contentViewController")
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "確認", style: .default, handler: { (action) in
@@ -170,14 +170,14 @@ class StatisticsViewController: UIViewController {
     }
     @IBAction func endTimeButton(_ sender: Any) {
         let vc = UIViewController()
-        vc.preferredContentSize = CGSize(width: 250, height: 300)
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 250, height: 300))
+        vc.preferredContentSize = CGSize(width: 400, height: 300)
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 400, height: 300))
         datePicker.locale = Locale(identifier: "zh_TW")
-        datePicker.datePickerMode = UIDatePicker.Mode.date
+        //datePicker.datePickerMode = UIDatePicker.Mode.date
         //datePicker.minuteInterval = 10
         vc.view.addSubview(datePicker)
         
-        let alert = UIAlertController(title: "請選擇開始時間", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "請選擇開始時間", message: nil, preferredStyle: .actionSheet)
         alert.setValue(vc, forKey: "contentViewController")
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "確認", style: .default, handler: { (action) in

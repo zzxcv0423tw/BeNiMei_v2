@@ -9,9 +9,11 @@
 import UIKit
 import Firebase
 
-class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
     var addTypeflag: Int8  = 0
+    var hasImageFlag: Int8 = 0
+    
     @IBOutlet weak var addItemName: UITextField!
     @IBOutlet weak var addServicePrice: UITextField!
     @IBOutlet weak var addServiceDescription: UITextView!
@@ -27,6 +29,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.hideKeyboardWhenTappedAround() 
         addServiceImageView.isUserInteractionEnabled = true
         addServiceImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addServiceImage)))
+        
+        addServiceDescription.delegate = self
         
         // Do any additional setup after loading the view.
     }
@@ -69,6 +73,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         if let selectedImage = selectedImageFormPicker {
             addServiceImageView.image = selectedImage
+            hasImageFlag = 1
         }
         
         dismiss(animated: true, completion: nil)
@@ -86,6 +91,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             let alert = UIAlertController(title: "確認", message: "確定新增服務項目？", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "送出", style: .default, handler: { action in
+                if self.hasImageFlag == 0 {
+                    self.addServiceImageView.image = UIImage(named: "noun_Lost_file")
+                }
                 let checkPrice = self.addServicePrice.text
                 if (checkPrice?.isInt)! {
                     self.darkBackgroundImageView.layer.zPosition = 4
@@ -153,7 +161,10 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             let alert = UIAlertController(title: "確認", message: "確定新增美容師？", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "送出", style: .default, handler: { action in
-                    
+                
+                    if self.hasImageFlag == 0 {
+                        self.addServiceImageView.image = UIImage(named: "noun_Lost_file")
+                    }
                     self.darkBackgroundImageView.layer.zPosition = 4
                     self.darkBackgroundImageView.isHidden = false
                     self.activityIndicator.layer.zPosition = 5
@@ -211,8 +222,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             let alert = UIAlertController(title: "確認", message: "確定新增加購產品？", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "送出", style: .default, handler: { action in
-    let checkPrice = self.addServicePrice.text
-    if (checkPrice?.isInt)! {
+                
+                if self.hasImageFlag == 0 {
+                    self.addServiceImageView.image = UIImage(named: "noun_Lost_file")
+                }
+                let checkPrice = self.addServicePrice.text
+                if (checkPrice?.isInt)! {
                 
                 self.darkBackgroundImageView.layer.zPosition = 4
                 self.darkBackgroundImageView.isHidden = false
@@ -277,6 +292,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.present(alert, animated: true, completion: nil)
         }
         
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "描述簡介"{
+            textView.text = ""
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.text = "描述簡介"
+        }
     }
 }
 extension String {
