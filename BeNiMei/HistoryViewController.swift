@@ -253,7 +253,18 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.aTableView.reloadData()
             }
         }))
-        present(alert, animated: true, completion: nil)
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad )
+        {
+            if let currentPopoverpresentioncontroller = alert.popoverPresentationController{
+                currentPopoverpresentioncontroller.sourceView = timePeriodStartButton
+                currentPopoverpresentioncontroller.sourceRect = timePeriodStartButton.bounds;
+                currentPopoverpresentioncontroller.permittedArrowDirections = UIPopoverArrowDirection.up;
+                self.present(alert, animated: true, completion: nil)
+            }
+        }else{
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     @IBAction func timePeriodEndButtonClick(_ sender: Any) {
         let vc = UIViewController()
@@ -300,7 +311,18 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.aTableView.reloadData()
             }
         }))
-        present(alert, animated: true, completion: nil)
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad )
+        {
+            if let currentPopoverpresentioncontroller = alert.popoverPresentationController{
+                currentPopoverpresentioncontroller.sourceView = timePeriodEndButton
+                currentPopoverpresentioncontroller.sourceRect = timePeriodEndButton.bounds;
+                currentPopoverpresentioncontroller.permittedArrowDirections = UIPopoverArrowDirection.up;
+                self.present(alert, animated: true, completion: nil)
+            }
+        }else{
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     @objc func callSatisfactionView(){
         if let controller = storyboard?.instantiateViewController(withIdentifier: "satisfaction") as? SatisfactionViewController{

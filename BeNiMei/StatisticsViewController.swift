@@ -166,7 +166,17 @@ class StatisticsViewController: UIViewController {
                 }
             }
         }))
-        present(alert, animated: true, completion: nil)
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad )
+        {
+            if let currentPopoverpresentioncontroller = alert.popoverPresentationController{
+                currentPopoverpresentioncontroller.sourceView = startTimeButton
+                currentPopoverpresentioncontroller.sourceRect = startTimeButton.bounds;
+                currentPopoverpresentioncontroller.permittedArrowDirections = UIPopoverArrowDirection.up;
+                self.present(alert, animated: true, completion: nil)
+            }
+        }else{
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     @IBAction func endTimeButton(_ sender: Any) {
         let vc = UIViewController()
@@ -217,6 +227,17 @@ class StatisticsViewController: UIViewController {
                 }
             }
         }))
-        present(alert, animated: true, completion: nil)
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad )
+        {
+            if let currentPopoverpresentioncontroller = alert.popoverPresentationController{
+                currentPopoverpresentioncontroller.sourceView = endTimeButton
+                currentPopoverpresentioncontroller.sourceRect = endTimeButton.bounds;
+                currentPopoverpresentioncontroller.permittedArrowDirections = UIPopoverArrowDirection.up;
+                self.present(alert, animated: true, completion: nil)
+            }
+        }else{
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
