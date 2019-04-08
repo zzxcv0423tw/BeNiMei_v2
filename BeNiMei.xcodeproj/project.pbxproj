@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18ED26E0225B447400025403 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED26DF225B447400025403 /* MyProfileViewController.swift */; };
+		18ED26E2225B4CFC00025403 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED26E1225B4CFC00025403 /* EditViewController.swift */; };
 		615EB829B67D4D175620F2B0 /* libPods-BeNiMeiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7382D1501509D61E7365F1 /* libPods-BeNiMeiTests.a */; };
 		663FC0CF222E68A20065A771 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 663FC0CC222E68A20065A771 /* GoogleService-Info.plist */; };
 		AB0FE70621F06517006EA2B4 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0FE70521F06517006EA2B4 /* HistoryViewController.swift */; };
@@ -70,6 +72,8 @@
 /* Begin PBXFileReference section */
 		079B06393EEA9E726706059B /* Pods-BeNiMeiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiTests/Pods-BeNiMeiTests.release.xcconfig"; sourceTree = "<group>"; };
 		18B26B7E2230257C00406544 /* manifest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = manifest.plist; path = ../manifest.plist; sourceTree = "<group>"; };
+		18ED26DF225B447400025403 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		18ED26E1225B4CFC00025403 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		2A6DA26345289D3B46ECB3C6 /* Pods-BeNiMeiUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiUITests/Pods-BeNiMeiUITests.release.xcconfig"; sourceTree = "<group>"; };
 		537B78791E3252339A4BA031 /* Pods-BeNiMei.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMei.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMei/Pods-BeNiMei.debug.xcconfig"; sourceTree = "<group>"; };
 		63EC6E84D7ACA13357FBB0C7 /* Pods-BeNiMeiTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiTests/Pods-BeNiMeiTests.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -211,6 +215,8 @@
 				AB47F24D222840C500BA2946 /* SignUpViewController.swift */,
 				AB47F24F22284B8800BA2946 /* LogInViewController.swift */,
 				66EF55C4222E607B00ADE79D /* Charts.xcodeproj */,
+				18ED26DF225B447400025403 /* MyProfileViewController.swift */,
+				18ED26E1225B4CFC00025403 /* EditViewController.swift */,
 			);
 			path = BeNiMei;
 			sourceTree = "<group>";
@@ -464,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18ED26E2225B4CFC00025403 /* EditViewController.swift in Sources */,
 				ABC889712226FD4100A1D5E9 /* SatisfactionViewController.swift in Sources */,
 				AB5F69A121F8AC6300B1DBBD /* ServiceCollectionViewCell.swift in Sources */,
 				ABB6A0E421FC6C6600EBC572 /* EditItemViewController.swift in Sources */,
@@ -476,6 +483,7 @@
 				AB4A353021FB0467001A75E8 /* AddItemViewController.swift in Sources */,
 				AB34234821E843EF00412BF4 /* CheckService.swift in Sources */,
 				ABECE1E621E135440011AB1D /* AppDelegate.swift in Sources */,
+				18ED26E0225B447400025403 /* MyProfileViewController.swift in Sources */,
 				AB0FE70621F06517006EA2B4 /* HistoryViewController.swift in Sources */,
 				ABB6A0E821FC86E800EBC572 /* EditItemTableViewCell.swift in Sources */,
 				ABECE1E821E135440011AB1D /* FirstViewController.swift in Sources */,

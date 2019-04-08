@@ -83,8 +83,6 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             self.tabBarController?.viewControllers?.remove(at: 2)
         }
         
-        let logOutButton = UIBarButtonItem(barButtonSystemItem: .rewind, target: self, action: #selector(logout))
-        self.navigationItem.leftBarButtonItem = logOutButton
         
         
         let navBackgroundImage = UIImage(named: "topbar_500_120")
@@ -380,17 +378,5 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
         orderedArray=[]
         priceLabel.text = "0"
-    }
-    @objc func logout(){
-        if Auth.auth().currentUser != nil {
-            do {
-                try Auth.auth().signOut()
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "login")
-                present(vc, animated: true, completion: nil)
-                
-            } catch let error as NSError {
-                print(error.localizedDescription)
-            }
-        }
     }
 }

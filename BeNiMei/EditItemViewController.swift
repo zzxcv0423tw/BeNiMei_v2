@@ -316,6 +316,15 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
     }
     */
     @objc func login(sender: UIButton) {
+        
+        self.performSegue(withIdentifier: "sendEdit", sender: sender.tag)
+        
+        /*
+        if let controller = storyboard?.instantiateViewController(withIdentifier: "editView") as? EditViewController{
+            navigationController?.pushViewController(controller, animated: true)
+        }
+         */
+        /*
         // 建立一個提示框
         let alertController = UIAlertController(
             title: "修改",
@@ -406,6 +415,7 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
                 updateServiceInfo["name"] = editName.text as AnyObject
                 updateServiceInfo["price"] = editPrice.text as AnyObject
                 updateServiceInfo["description"] = editDescription.text as AnyObject
+         
                 if self.typeSegFlag == 0{
                     self.ref.child("service").child(self.itemArray[sender.tag].key).updateChildValues(updateServiceInfo)
                     
@@ -472,5 +482,25 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
             alertController,
             animated: true,
             completion: nil)
+    */}
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let tag = sender as! Int
+        let controller = segue.destination as! EditViewController
+        var type = String()
+        switch typeSegFlag {
+        case 0:
+            type = "服務產品"
+        case 1:
+            type = "美容師"
+        case 2:
+            type = "加購產品"
+        default:
+            type = "Error"
+        }
+        controller.carryInfo.type = type
+        controller.carryInfo.name = self.itemArray[tag].name
+        controller.carryInfo.price = self.itemArray[tag].price
+        controller.carryInfo.Description = self.itemArray[tag].description
+        controller.carryInfo.Image = self.itemArray[tag].imagePath
     }
 }
