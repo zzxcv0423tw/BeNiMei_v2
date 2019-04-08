@@ -85,7 +85,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         
         
-        let navBackgroundImage = UIImage(named: "topbar_500_120")
+        let navBackgroundImage = UIImage(named: "topbar_1200_120")
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)
         
         addPerchaseCollectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)

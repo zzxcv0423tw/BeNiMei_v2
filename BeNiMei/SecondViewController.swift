@@ -72,7 +72,7 @@ class SecondViewController: UIViewController, UITextViewDelegate  {
         super.viewDidLoad()
         dataLabel.backgroundColor =     UIColor(patternImage: UIImage(named: "bg_150_200")!)
         // Do any additional setup after loading the view, typically from a nib.
-        let navBackgroundImage = UIImage(named: "topbar_500_120")
+        let navBackgroundImage = UIImage(named: "topbar_1200_120")
        scoreLabel.text = String(Int(aSlider.value))
         
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)

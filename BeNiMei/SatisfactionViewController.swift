@@ -45,6 +45,7 @@ class SatisfactionViewController: UIViewController, UITableViewDelegate, UITable
                 }
                 self.satisfactions.append(sat)
             }
+            self.satisfactions = self.satisfactions.reversed()
             self.satisfactionTableView.reloadData()
         })
         

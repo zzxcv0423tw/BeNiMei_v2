@@ -108,7 +108,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         showImageView.isUserInteractionEnabled = true
         
         // Do any additional setup after loading the view.
-        let navBackgroundImage = UIImage(named: "topbar_500_120")
+        let navBackgroundImage = UIImage(named: "topbar_1200_120")
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)
         
         setupSearchBar()
