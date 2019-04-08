@@ -221,15 +221,6 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EditItemTableViewCell
         cell.itemLabel.text = itemArray[indexPath.row].name
-        if typeSegFlag == 0{
-            cell.editItemButton.isHidden = false
-        }
-        else if typeSegFlag == 1{
-            cell.editItemButton.isHidden = true
-        }
-        else if typeSegFlag == 2{
-            cell.editItemButton.isHidden = false
-        }
         cell.deleteItemButton.tag = indexPath.row
         cell.deleteItemButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchUpInside)
         
@@ -486,18 +477,9 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let tag = sender as! Int
         let controller = segue.destination as! EditViewController
-        var type = String()
-        switch typeSegFlag {
-        case 0:
-            type = "服務產品"
-        case 1:
-            type = "美容師"
-        case 2:
-            type = "加購產品"
-        default:
-            type = "Error"
-        }
-        controller.carryInfo.type = type
+        
+        controller.carryInfo.key = self.itemArray[tag].key
+        controller.carryInfo.type = String(typeSegFlag)
         controller.carryInfo.name = self.itemArray[tag].name
         controller.carryInfo.price = self.itemArray[tag].price
         controller.carryInfo.Description = self.itemArray[tag].description
