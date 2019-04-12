@@ -20,6 +20,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     @IBOutlet weak var showImageView: UIImageView!
     @IBOutlet weak var productMenuSeg: UISegmentedControl!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var DarkBackgroundImageView: UIImageView!
     
     
     struct product {
@@ -40,6 +41,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     var serviceArray = [product]()
     var addPerchaseArray = [product]()
     var orderedArray = [ordered]()
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -221,24 +223,50 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
     }
     @objc func showImage(sender: UIButton){
+        showImageView.layer.zPosition = 6
+        self.DarkBackgroundImageView.layer.zPosition = 4
+        self.DarkBackgroundImageView.isHidden = false
+        self.activityIndicator.layer.zPosition = 5
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
         let pathRef = Storage.storage().reference().child("image/\(self.serviceArray[sender.tag].imagePath)")
         pathRef.getData(maxSize: 1*5120*5120) { (data, error) in
             if let error = error {
                 print(error)
             }
             else{
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 self.showImageView.isHidden = false
                 self.showImageView.image = UIImage(data: data!)
             }
         }
     }
     @objc func showaPImage(sender: UIButton){
+        showImageView.layer.zPosition = 6
+        self.DarkBackgroundImageView.layer.zPosition = 4
+        self.DarkBackgroundImageView.isHidden = false
+        self.activityIndicator.layer.zPosition = 5
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
         let pathRef = Storage.storage().reference().child("image/\(self.addPerchaseArray[sender.tag].imagePath)")
         pathRef.getData(maxSize: 1*5120*5120) { (data, error) in
             if let error = error {
                 print(error)
             }
             else{
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 self.showImageView.isHidden = false
                 self.showImageView.image = UIImage(data: data!)
             }
@@ -248,6 +276,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         if let imageView = gesture.view as? UIImageView{
             showImageView.isHidden = true
             showImageView.image = nil
+            self.DarkBackgroundImageView.isHidden = true
         }
     }
     @IBAction func menuSegChange(_ sender: UISegmentedControl) {

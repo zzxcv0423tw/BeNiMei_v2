@@ -135,11 +135,11 @@ class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
             hasImageFlag = 1
         }
         
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
         
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 
