@@ -92,10 +92,10 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             ItemPhotoImageView.image = selectedImage
             hasImageFlag = 1
         }
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
     @IBAction func alert(_ sender: Any) {
         if carryInfo.type == "0"{
