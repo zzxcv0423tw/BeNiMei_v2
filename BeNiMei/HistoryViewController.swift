@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+//import SwiftCSVExport
+//import MessageUI
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate{
     
@@ -30,10 +32,12 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         var imagePath = String()
     }
     
+    
     var customerInfos : [cuInfo] = [cuInfo]()
     var filteredCuInfos = [cuInfo]()
     var searchController = UISearchController(searchResultsController: nil)
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    
     
     func configureSearchController() {
         searchController = UISearchController(searchResultsController: nil)
@@ -66,10 +70,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.hideKeyboardWhenTappedAround()
         
-        dataLabel.backgroundColor =     UIColor(patternImage: UIImage(named: "bg_150_200")!)
+        dataLabel.backgroundColor = UIColor(patternImage: UIImage(named: "bg_150_200")!)
         
         let refCustomer : DatabaseReference! = Database.database().reference().child("customer")
         refCustomer.queryOrderedByKey().observe(.childAdded, with: {(snapshot) in
@@ -152,14 +156,16 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         else {
             
         switch aSearchBar.selectedScopeButtonIndex {
-            case 0:filteredCuInfos = customerInfos.filter( {$0.name.lowercased().contains(aSearchBar.text!.lowercased())} )
-            case 1:filteredCuInfos =
-                customerInfos.filter( {$0.phone.lowercased().contains(aSearchBar.text!.lowercased())} )
+            case 0:
+                filteredCuInfos = customerInfos.filter( {$0.name.lowercased().contains(aSearchBar.text!.lowercased())} )
+            case 1:
+                filteredCuInfos = customerInfos.filter( {$0.phone.lowercased().contains(aSearchBar.text!.lowercased())} )
             case 2:
-                filteredCuInfos = customerInfos.filter( {$0.date.lowercased().contains(aSearchBar.text!.lowercased())} )
-            case 3:filteredCuInfos = customerInfos.filter( {$0.service.lowercased().contains(aSearchBar.text!.lowercased())} )
-            case 4:filteredCuInfos = customerInfos.filter( {$0.price.lowercased().contains(aSearchBar.text!.lowercased())} )
-            case 5:filteredCuInfos = customerInfos.filter( {$0.beautician.lowercased().contains(aSearchBar.text!.lowercased())} )
+                filteredCuInfos = customerInfos.filter( {$0.service.lowercased().contains(aSearchBar.text!.lowercased())} )
+            case 3:
+                filteredCuInfos = customerInfos.filter( {$0.price.lowercased().contains(aSearchBar.text!.lowercased())} )
+            case 4:
+                filteredCuInfos = customerInfos.filter( {$0.beautician.lowercased().contains(aSearchBar.text!.lowercased())} )
             default:
                 break
             }
@@ -169,6 +175,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         
+        /*
         if selectedScope == 2 {
             timePeriodStackView.isHidden = false
             searchBar.text = ""
@@ -180,6 +187,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             timePeriodEndButton.setTitle("結束", for: .normal)
             searchBar.placeholder = ""
         }
+         */
         
         if aSearchBar.text! == ""{
             filteredCuInfos = customerInfos
@@ -192,12 +200,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             case 1:
                 filteredCuInfos = customerInfos.filter( {$0.phone.lowercased().contains(aSearchBar.text!.lowercased())} )
             case 2:
-                print(2)
-            case 3:
                 filteredCuInfos = customerInfos.filter( {$0.service.lowercased().contains(aSearchBar.text!.lowercased())} )
-            case 4:
+            case 3:
                 filteredCuInfos = customerInfos.filter( {$0.price.lowercased().contains(aSearchBar.text!.lowercased())} )
-            case 5:
+            case 4:
                 filteredCuInfos = customerInfos.filter( {$0.beautician.lowercased().contains(aSearchBar.text!.lowercased())} )
             default:
                  break
@@ -362,5 +368,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             showImageView.image = nil
             self.DarkBackgroundImageView.isHidden = true
         }
+    }
+    @IBAction func exportClick(_ sender: Any) {
+        print(filteredCuInfos)
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188A24FE22958B1700056730 /* libSwiftCSVExport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 188A24FD22958B1700056730 /* libSwiftCSVExport.a */; };
 		18ED26E0225B447400025403 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED26DF225B447400025403 /* MyProfileViewController.swift */; };
 		18ED26E2225B4CFC00025403 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED26E1225B4CFC00025403 /* EditViewController.swift */; };
 		615EB829B67D4D175620F2B0 /* libPods-BeNiMeiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7382D1501509D61E7365F1 /* libPods-BeNiMeiTests.a */; };
@@ -71,6 +72,7 @@
 
 /* Begin PBXFileReference section */
 		079B06393EEA9E726706059B /* Pods-BeNiMeiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeNiMeiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BeNiMeiTests/Pods-BeNiMeiTests.release.xcconfig"; sourceTree = "<group>"; };
+		188A24FD22958B1700056730 /* libSwiftCSVExport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSwiftCSVExport.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B26B7E2230257C00406544 /* manifest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = manifest.plist; path = ../manifest.plist; sourceTree = "<group>"; };
 		18ED26DF225B447400025403 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		18ED26E1225B4CFC00025403 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188A24FE22958B1700056730 /* libSwiftCSVExport.a in Frameworks */,
 				D0D304A3C67FC256B898CF25 /* libPods-BeNiMei.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +152,7 @@
 		0B4C321A0CF5C8A34A24364B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				188A24FD22958B1700056730 /* libSwiftCSVExport.a */,
 				A0298AB0B249D64D43293B88 /* libPods-BeNiMei.a */,
 				DB7382D1501509D61E7365F1 /* libPods-BeNiMeiTests.a */,
 				7465BE7CEA295D03383CDF4A /* libPods-BeNiMeiUITests.a */,
@@ -589,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -608,14 +612,14 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6C5DSTZF9S;
 				INFOPLIST_FILE = BeNiMei/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SlashTeam.BeNiMei;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_Jin_with_iPad_Terry;
+				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_2owner_2tester;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -713,7 +717,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -768,7 +772,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -787,14 +791,14 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6C5DSTZF9S;
 				INFOPLIST_FILE = BeNiMei/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SlashTeam.BeNiMei;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_Jin_with_iPad_Terry;
+				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_2owner_2tester;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -809,14 +813,14 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6C5DSTZF9S;
 				INFOPLIST_FILE = BeNiMei/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SlashTeam.BeNiMei;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_Jin_with_iPad_Terry;
+				PROVISIONING_PROFILE_SPECIFIER = BeNiMei_2owner_2tester;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

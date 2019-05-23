@@ -192,10 +192,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
                 let idx : IndexPath = [0,index]
                 let tCell = myCollectionView.cellForItem(at: idx)
                 if item.isSelected{
-                    tCell?.contentView.backgroundColor = UIColor(displayP3Red: 0.694, green: 0.561, blue: 0.388, alpha: 1)
+                    tCell?.contentView.backgroundColor = UIColor(red: 0.694, green: 0.561, blue: 0.388, alpha: 1)
                 }
                 else{
-                    tCell?.contentView.backgroundColor = UIColor(displayP3Red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
+                    tCell?.contentView.backgroundColor = UIColor(red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
                 }
             }
             return serviceCell
@@ -213,10 +213,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
                 let idx : IndexPath = [0,index]
                 let tCell = addPerchaseCollectionView.cellForItem(at: idx)
                 if item.isSelected{
-                    tCell?.contentView.backgroundColor = UIColor(displayP3Red: 0.694, green: 0.561, blue: 0.388, alpha: 1)
+                    tCell?.contentView.backgroundColor = UIColor(red: 0.694, green: 0.561, blue: 0.388, alpha: 1)
                 }
                 else{
-                    tCell?.contentView.backgroundColor = UIColor(displayP3Red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
+                    tCell?.contentView.backgroundColor = UIColor(red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
                 }
             }
             return addPerchaseCell
@@ -328,10 +328,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
                 let idx : IndexPath = [0,index]
                 let tCell = myCollectionView.cellForItem(at: idx)
                 if item.isSelected{
-                    tCell?.contentView.backgroundColor = UIColor(displayP3Red: 0.694, green: 0.561, blue: 0.388, alpha: 1)
+                    tCell?.contentView.backgroundColor = UIColor(red: 0.694, green: 0.561, blue: 0.388, alpha: 1)
                 }
                 else{
-                    tCell?.contentView.backgroundColor = UIColor(displayP3Red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
+                    tCell?.contentView.backgroundColor = UIColor(red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
                 }
             }
         }
@@ -365,10 +365,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
                 let tCell = addPerchaseCollectionView.cellForItem(at: idx)
                 if item.isSelected{
                     
-                    tCell?.contentView.backgroundColor = UIColor(displayP3Red: 0.694, green: 0.561, blue: 0.388, alpha: 1)
+                    tCell?.contentView.backgroundColor = UIColor(red: 0.694, green: 0.561, blue: 0.388, alpha: 1)
                 }
                 else{
-                    tCell?.contentView.backgroundColor = UIColor(displayP3Red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
+                    tCell?.contentView.backgroundColor = UIColor(red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
                 }
             }
         }
