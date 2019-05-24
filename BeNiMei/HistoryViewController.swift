@@ -876,7 +876,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             outputData.append(eachdata.beautician)
             outputData.append("\r\n")
         }
-        print(outputData)
+        //print(outputData)
         /*
         let activityViewController = UIActivityViewController(activityItems: [outputData], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)

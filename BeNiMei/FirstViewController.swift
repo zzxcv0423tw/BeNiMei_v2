@@ -397,7 +397,7 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         //selectedCell.contentView.backgroundColor = UIColor(displayP3Red: 0.953, green: 0.941, blue: 0.867, alpha: 1)
         
         
-        print(orderedArray)
+        //print(orderedArray)
         var totalPrice = 0
         for ordered in orderedArray{
             totalPrice = totalPrice + Int(ordered.price)! 
