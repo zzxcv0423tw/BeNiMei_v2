@@ -73,6 +73,15 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         ItemPhotoImageView.isUserInteractionEnabled = true
         ItemPhotoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeImage)))
+        
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            ItemNameTextField.font = UIFont.systemFont(ofSize: 27)
+            ItemPriceTextField.font = UIFont.systemFont(ofSize: 27)
+            ItemDescriptionTextView.font = UIFont.systemFont(ofSize: 27)
+            ItemTypeLabel.font = UIFont.systemFont(ofSize: 27)
+        }
+        
     }
     @IBAction func changeImage(_ sender: Any){
         let picker = UIImagePickerController()

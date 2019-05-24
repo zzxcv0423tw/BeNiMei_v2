@@ -29,6 +29,10 @@ class MyProfileViewController: UIViewController {
         else {
             profileImageView.image = UIImage(named: "ManagerUser")
         }
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            profileEmailLabel.font = UIFont.systemFont(ofSize: 27)
+        }
     }
     @IBAction func logOut(_ sender: Any) {
         if Auth.auth().currentUser != nil {

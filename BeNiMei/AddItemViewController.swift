@@ -19,6 +19,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var addServiceDescription: UITextView!
     @IBOutlet weak var addServiceImageView: UIImageView!
     @IBOutlet weak var darkBackgroundImageView: UIImageView!
+    @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
     
     var ref: DatabaseReference! = Database.database().reference()
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
@@ -31,6 +32,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         addServiceImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addServiceImage)))
         
         addServiceDescription.delegate = self
+        
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            addItemName.font = UIFont.systemFont(ofSize: 27)
+            addServicePrice.font = UIFont.systemFont(ofSize: 27)
+            addServiceDescription.font = UIFont.systemFont(ofSize: 27)
+            typeSegmentedControl.setTitleTextAttributes([.font:UIFont.systemFont(ofSize: 23)], for: .normal)
+        }
         
         // Do any additional setup after loading the view.
     }

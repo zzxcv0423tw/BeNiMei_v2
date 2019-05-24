@@ -21,6 +21,8 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
     @IBOutlet weak var productMenuSeg: UISegmentedControl!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var DarkBackgroundImageView: UIImageView!
+    @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var totalLabel: UILabel!
     
     
     struct product {
@@ -85,7 +87,11 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             self.tabBarController?.viewControllers?.remove(at: 2)
         }
         
-        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            typeSegmentedControl.setTitleTextAttributes([.font:UIFont.systemFont(ofSize: 23)], for: .normal)
+            totalLabel.font = UIFont.systemFont(ofSize: 27)
+            priceLabel.font = UIFont.systemFont(ofSize: 27)
+        }
         
         let navBackgroundImage = UIImage(named: "topbar_1200_120")
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)
@@ -182,6 +188,13 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             let serviceCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ServiceCollectionViewCell
             
+            if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+                serviceCell.serviceNameButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+                serviceCell.servicePriceLabel.font = UIFont.systemFont(ofSize: 20)
+                serviceCell.serviceDescriptionLabel.font = UIFont.systemFont(ofSize: 21)
+                serviceCell.serviceImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+                
+            }
             serviceCell.serviceNameButton.setTitle(self.serviceArray[indexPath.row].name, for: .normal)
             serviceCell.servicePriceLabel.text = String(self.serviceArray[indexPath.row].price)
             serviceCell.serviceDescriptionLabel.text = self.serviceArray[indexPath.row].description
@@ -203,6 +216,13 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         else{
             let addPerchaseCell = collectionView.dequeueReusableCell(withReuseIdentifier: "adPeCell", for: indexPath) as! AddPerchaseCollectionViewCell
             
+            if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+                addPerchaseCell.addPerchaseNameButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+                addPerchaseCell.addPerchasePriceLabel.font = UIFont.systemFont(ofSize: 20)
+                addPerchaseCell.addPerchaseDescriptionLabel.font = UIFont.systemFont(ofSize: 21)
+                addPerchaseCell.addPerchaseImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+                
+            }
             addPerchaseCell.addPerchaseNameButton.setTitle(self.addPerchaseArray[indexPath.row].name, for: .normal)
             addPerchaseCell.addPerchasePriceLabel.text = String(self.addPerchaseArray[indexPath.row].price)
             addPerchaseCell.addPerchaseDescriptionLabel.text = self.addPerchaseArray[indexPath.row].description

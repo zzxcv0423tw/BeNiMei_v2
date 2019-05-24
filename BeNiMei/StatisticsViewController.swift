@@ -17,6 +17,7 @@ class StatisticsViewController: UIViewController {
     @IBOutlet weak var startTimeButton: UIButton!
     @IBOutlet weak var endTimeButton: UIButton!
     @IBOutlet weak var totalPriceLabel: UILabel!
+    @IBOutlet weak var sellPriceLabel: UILabel!
     
     struct product {
         var name = String()
@@ -62,6 +63,15 @@ class StatisticsViewController: UIViewController {
             }
             let calculatedData = self.dataCalculation(data: self.datas)
             self.updateChartsData(cData: calculatedData)
+        }
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            startTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 27)
+            endTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 27)
+            sellPriceLabel.font = UIFont.systemFont(ofSize: 27)
+            totalPriceLabel.font = UIFont.systemFont(ofSize: 27)
+            myPieChartView.chartDescription?.font = UIFont.systemFont(ofSize: 22)
+            myPieChartView.entryLabelFont = UIFont.systemFont(ofSize: 24)
         }
     }
     

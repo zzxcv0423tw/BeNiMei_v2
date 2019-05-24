@@ -12,6 +12,7 @@ import Firebase
 class EditItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var aTableView: UITableView!
+    @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
     
     struct item {
         var key = String()
@@ -105,6 +106,9 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
                 self.addPerchaseArray.append(addPerchaseItem)
             }
         })
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            typeSegmentedControl.setTitleTextAttributes([.font:UIFont.systemFont(ofSize: 23)], for: .normal)
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         
@@ -220,6 +224,10 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EditItemTableViewCell
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            cell.itemLabel.font = UIFont.systemFont(ofSize: 22)
+        }
         cell.itemLabel.text = itemArray[indexPath.row].name
         cell.deleteItemButton.tag = indexPath.row
         cell.deleteItemButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchUpInside)

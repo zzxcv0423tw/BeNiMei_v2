@@ -13,10 +13,19 @@ class SignUpViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signUpLabel: UILabel!
+    @IBOutlet weak var SignUpButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            signUpLabel.font = UIFont.systemFont(ofSize: 60)
+            emailTextField.font = UIFont.systemFont(ofSize: 30)
+            passwordTextField.font = UIFont.systemFont(ofSize: 30)
+            SignUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        }
         self.hideKeyboardWhenTappedAround() 
         
     }

@@ -11,8 +11,14 @@ import Firebase
 
 class SecondViewController: UIViewController, UITextViewDelegate  {
 
+    @IBOutlet weak var todayServiceLabel: UILabel!
     @IBOutlet weak var aSlider: UISlider!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var scoreFrontLabel: UILabel!
+    @IBOutlet weak var scoreAfterLabel: UILabel!
+    @IBOutlet weak var whyScoreLabel: UILabel!
+    @IBOutlet weak var betterLabel: UILabel!
+    @IBOutlet weak var thankLabel: UILabel!
     
     @IBOutlet weak var reasonTextView: UITextView!
     @IBOutlet weak var suggetTextView: UITextView!
@@ -80,7 +86,21 @@ class SecondViewController: UIViewController, UITextViewDelegate  {
         reasonTextView.delegate = self
         suggetTextView.delegate = self
         
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
+        
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            todayServiceLabel.font = UIFont.systemFont(ofSize: 27)
+            scoreLabel.font = UIFont.systemFont(ofSize: 33)
+            scoreFrontLabel.font = UIFont.systemFont(ofSize: 22)
+            scoreAfterLabel.font = UIFont.systemFont(ofSize: 22)
+            whyScoreLabel.font = UIFont.systemFont(ofSize: 22)
+            betterLabel.font = UIFont.systemFont(ofSize: 22)
+            thankLabel.font = UIFont.systemFont(ofSize: 27)
+            reasonTextView.font = UIFont.systemFont(ofSize: 24)
+            suggetTextView.font = UIFont.systemFont(ofSize: 24)
+        }
+        
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "原因" || textView.text == "建議" {

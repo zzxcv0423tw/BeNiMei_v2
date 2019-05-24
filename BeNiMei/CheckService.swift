@@ -13,6 +13,7 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     @IBOutlet weak var ATableView: UITableView!
     @IBOutlet weak var totalPrice: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
     
     var cuName: String = ""
     var cuPhone: String = ""
@@ -97,7 +98,13 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     //告知tableView需要顯示什麼
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            cell.serviceLabel.font = UIFont.systemFont(ofSize: 27)
+            cell.priceLabel.font = UIFont.systemFont(ofSize: 27)
+        }
         cell.serviceLabel.text = orderedNameArrayc[indexPath.row]
         cell.priceLabel.text = String( priceArrayc[indexPath.row])
         return cell
@@ -120,6 +127,12 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
         print(cuPhone)
         print(cuBeautician)
         print(cuDate)
+        
+        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            totalLabel.font = UIFont.systemFont(ofSize: 28)
+            totalPrice.font = UIFont.systemFont(ofSize: 45)
+        }
     }
     
 }

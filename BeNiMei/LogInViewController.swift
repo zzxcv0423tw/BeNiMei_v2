@@ -13,9 +13,16 @@ class LogInViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var LoginLabel: UILabel!
+    @IBOutlet weak var LoginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            LoginLabel.font = UIFont.systemFont(ofSize: 60)
+            emailTextField.font = UIFont.systemFont(ofSize: 30)
+            passwordTextField.font = UIFont.systemFont(ofSize: 30)
+            LoginButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        }
         self.hideKeyboardWhenTappedAround() 
     }
 

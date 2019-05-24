@@ -75,7 +75,11 @@ class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         
         dateValue.dateFormat = "yy/MM/dd HH:mm" // 設定要顯示在Text Field的日期時間格式
         dateValueS = dateValue.string(from: cuDateF.date) // 更新Text Field的內容
-        
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            cuNameF.font = UIFont.systemFont(ofSize: 27)
+            cuPhoneF.font = UIFont.systemFont(ofSize: 27)
+            selectBeauticianButton.titleLabel?.font = UIFont.systemFont(ofSize: 27)
+        }
     }
     @IBAction func popUpBeauticianPicker(_ sender: Any) {
         
