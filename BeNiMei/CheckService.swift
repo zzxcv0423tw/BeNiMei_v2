@@ -14,6 +14,7 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var ATableView: UITableView!
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var paymentSwitch: UISwitch!
     
     var cuName: String = ""
     var cuPhone: String = ""
@@ -61,6 +62,13 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
                             customerInfo["eachPrice"] = priceArraycStr as AnyObject
                             customerInfo["imageUrl"] = imageUrl as AnyObject
                             customerInfo["imagePath"] = ("cu_\(uniqueString).png") as AnyObject
+                            if self.paymentSwitch.isOn {
+                                customerInfo["payment"] = "transfer" as AnyObject
+                            }
+                            else {
+                                customerInfo["payment"] = "cash" as AnyObject
+                            }
+                            
                             
                             let childRef = self.refWriteDBFild.childByAutoId() // 隨機生成的節點唯一識別碼，用來當儲存時的key值
                             let customerInfoReference = self.refWriteDBFild.child(childRef.key ?? "000")
@@ -71,7 +79,7 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
                                     return
                                 }
                                 
-                                print(reff.description())
+                                //print(reff.description())
                             }
                         }
                     })
@@ -123,10 +131,10 @@ class CheckService: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         checkLabel.backgroundColor =     UIColor(patternImage: UIImage(named: "bg_150_200")!)
         
-        print(cuName)
-        print(cuPhone)
-        print(cuBeautician)
-        print(cuDate)
+        //print(cuName)
+        //print(cuPhone)
+        //print(cuBeautician)
+        //print(cuDate)
         
         
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){

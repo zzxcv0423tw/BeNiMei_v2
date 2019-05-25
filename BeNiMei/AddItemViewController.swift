@@ -146,7 +146,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                             print("err: \(err!)")
                                             return
                                         }
-                                        print(reff.description())
+                                        //print(reff.description())
                                     }
                                 }
                                 self.activityIndicator.stopAnimating()

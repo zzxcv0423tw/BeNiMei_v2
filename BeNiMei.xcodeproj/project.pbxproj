@@ -213,14 +213,14 @@
 				AB47F24D222840C500BA2946 /* SignUpViewController.swift */,
 				AB47F24F22284B8800BA2946 /* LogInViewController.swift */,
 				ABF37C8C2224FD8F006B91AA /* AddPerchaseCollectionViewCell.swift */,
+				ABECE1F321E135450011AB1D /* Info.plist */,
+				663FC0CC222E68A20065A771 /* GoogleService-Info.plist */,
+				66EF55C4222E607B00ADE79D /* Charts.xcodeproj */,
 				ABB6A0E721FC86E800EBC572 /* EditItemTableViewCell.swift */,
 				AB512D7121EF9348000EEC3C /* CustomCheckTableViewCell.swift */,
 				AB0FE70721F07648006EA2B4 /* CustomHistoryTableViewCell.swift */,
 				AB5F69A021F8AC6300B1DBBD /* ServiceCollectionViewCell.swift */,
-				ABECE1F321E135450011AB1D /* Info.plist */,
-				663FC0CC222E68A20065A771 /* GoogleService-Info.plist */,
 				ABC8896E2226FCF100A1D5E9 /* SatisfactionTableViewCell.swift */,
-				66EF55C4222E607B00ADE79D /* Charts.xcodeproj */,
 			);
 			path = BeNiMei;
 			sourceTree = "<group>";

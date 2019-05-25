@@ -149,7 +149,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                                 print("err: \(err!)")
                                                 return
                                             }
-                                            print(reff.description())
+                                            //print(reff.description())
                                         }
                                     }
                                     self.activityIndicator.stopAnimating()
@@ -193,7 +193,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                 print("err: \(err!)")
                                 return
                             }
-                            print(reff.description())
+                            //print(reff.description())
                         }
                         self.activityIndicator.stopAnimating()
                         UIApplication.shared.endIgnoringInteractionEvents()
@@ -247,7 +247,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                                 print("err: \(err!)")
                                                 return
                                             }
-                                            print(reff.description())
+                                            //print(reff.description())
                                         }
                                     }
                                     self.activityIndicator.stopAnimating()
@@ -281,7 +281,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                 print("err: \(err!)")
                                 return
                             }
-                            print(reff.description())
+                            //print(reff.description())
                         }
                         self.activityIndicator.stopAnimating()
                         UIApplication.shared.endIgnoringInteractionEvents()
@@ -333,7 +333,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                                 print("err: \(err!)")
                                                 return
                                             }
-                                            print(reff.description())
+                                            //print(reff.description())
                                         }
                                     }
                                     self.activityIndicator.stopAnimating()
@@ -376,7 +376,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                 print("err: \(err!)")
                                 return
                             }
-                            print(reff.description())
+                            //print(reff.description())
                         }
                         self.activityIndicator.stopAnimating()
                         UIApplication.shared.endIgnoringInteractionEvents()

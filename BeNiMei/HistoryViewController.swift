@@ -40,6 +40,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         var price = String()
         var beautician = String()
         var imagePath = String()
+        var payment = String()
     }
     
     
@@ -73,6 +74,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.price.font = UIFont.systemFont(ofSize: 22)
             cell.beautician.font = UIFont.systemFont(ofSize: 22)
             cell.showPictureButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+            cell.paymentLabel.font = UIFont.systemFont(ofSize: 22)
         }
         cell.name.text = filteredCuInfos[indexPath.row].name
         cell.phone.text = filteredCuInfos[indexPath.row].phone
@@ -82,6 +84,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.beautician.text = filteredCuInfos[indexPath.row].beautician
         cell.showPictureButton.tag = indexPath.row
         cell.showPictureButton.addTarget(self, action: #selector(showImage), for: .touchUpInside)
+        cell.paymentLabel.text = filteredCuInfos[indexPath.row].payment
         return cell
         
     }
@@ -96,7 +99,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let refCustomer : DatabaseReference! = Database.database().reference().child("customer")
         refCustomer.queryOrderedByKey().observe(.childAdded, with: {(snapshot) in
-            var customerItem : cuInfo = cuInfo(name: "", phone: "", date: "", service: "", price: "", beautician: "", imagePath: "")
+            var customerItem : cuInfo = cuInfo(name: "", phone: "", date: "", service: "", price: "", beautician: "", imagePath: "", payment: "")
             if let dictionaryData = snapshot.value as? [String:AnyObject]{
                 
                 var serviceItemArrayStr = String()
@@ -118,6 +121,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         customerItem.beautician = item.value as! String
                     case "imagePath":
                         customerItem.imagePath = item.value as! String
+                    case "payment":
+                        if (item.value as! String) == "cash" {
+                            customerItem.payment = "現金支付"
+                        } else if (item.value as! String) == "transfer" {
+                            customerItem.payment = "匯款支付"
+                        } else {
+                            customerItem.payment = "其他"
+                        }
                     default:
                         break
                     }
@@ -856,7 +867,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     @IBAction func exportClick(_ sender: Any) {
-        var outputData : String = "客戶, 手機, 日期, 服務, 價格, 美容師\r\n"
+        var outputData : String = "客戶, 手機, 日期, 服務, 價格, 美容師, 付款方式\r\n"
         for eachdata in filteredCuInfos {
             outputData.append(eachdata.name)
             outputData.append(", ")
@@ -874,6 +885,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             outputData.append(eachdata.price)
             outputData.append(", ")
             outputData.append(eachdata.beautician)
+            outputData.append(", ")
+            outputData.append(eachdata.payment)
             outputData.append("\r\n")
         }
         //print(outputData)
