@@ -18,4 +18,6 @@ class SatisfactionTableViewCell: UITableViewCell {
     @IBOutlet weak var titleReasonLabel: UILabel!
     @IBOutlet weak var titleSuggestLabel: UILabel!
     @IBOutlet weak var titleDataLabel: UILabel!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
 }

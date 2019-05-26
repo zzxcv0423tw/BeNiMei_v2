@@ -1275,5 +1275,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         controller.carryInfo.price = self.filteredCuInfos[tag].price
         controller.carryInfo.beautician = self.filteredCuInfos[tag].beautician
         controller.carryInfo.imagePath = self.filteredCuInfos[tag].imagePath
+        controller.carryInfo.payment = self.filteredCuInfos[tag].payment
     }
 }
