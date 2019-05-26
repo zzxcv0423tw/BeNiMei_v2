@@ -33,6 +33,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var titlePriceLabel: UILabel!
     @IBOutlet weak var titleBeauticianLabel: UILabel!
     struct cuInfo {
+        var key = String()
         var name = String()
         var phone = String()
         var date = String()
@@ -85,6 +86,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.showPictureButton.tag = indexPath.row
         cell.showPictureButton.addTarget(self, action: #selector(showImage), for: .touchUpInside)
         cell.paymentLabel.text = filteredCuInfos[indexPath.row].payment
+        cell.deleteButton.tag = indexPath.row
+        cell.deleteButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchUpInside)
+        cell.editButton.tag = indexPath.row
+        cell.editButton.addTarget(self, action: #selector(tapEditButton), for: .touchUpInside)
         return cell
         
     }
@@ -97,48 +102,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         dataLabel.backgroundColor = UIColor(patternImage: UIImage(named: "bg_150_200")!)
         
-        let refCustomer : DatabaseReference! = Database.database().reference().child("customer")
-        refCustomer.queryOrderedByKey().observe(.childAdded, with: {(snapshot) in
-            var customerItem : cuInfo = cuInfo(name: "", phone: "", date: "", service: "", price: "", beautician: "", imagePath: "", payment: "")
-            if let dictionaryData = snapshot.value as? [String:AnyObject]{
-                
-                var serviceItemArrayStr = String()
-                
-                for item in dictionaryData{
-                    switch item.key {
-                    case "name":
-                        customerItem.name = item.value as! String
-                    case "phone":
-                        customerItem.phone = item.value as! String
-                    case "date":
-                        customerItem.date = item.value as! String
-                    case "service":
-                        serviceItemArrayStr = (snapshot.childSnapshot(forPath: "service").value as! [String]).joined(separator: "\r\n")
-                        customerItem.service = serviceItemArrayStr
-                    case "price":
-                        customerItem.price = item.value as! String
-                    case "beautician":
-                        customerItem.beautician = item.value as! String
-                    case "imagePath":
-                        customerItem.imagePath = item.value as! String
-                    case "payment":
-                        if (item.value as! String) == "cash" {
-                            customerItem.payment = "現金支付"
-                        } else if (item.value as! String) == "transfer" {
-                            customerItem.payment = "匯款支付"
-                        } else {
-                            customerItem.payment = "其他"
-                        }
-                    default:
-                        break
-                    }
-                }
-                self.customerInfos.append(customerItem)
-            }
-            self.filteredCuInfos = self.customerInfos
-            self.dataCountLabel.text = String(self.filteredCuInfos.count)
-            self.aTableView.reloadData()
-        })
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         showImageView.addGestureRecognizer(tapGesture)
@@ -180,6 +144,189 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             titleContentLabel.font = UIFont.systemFont(ofSize: 22)
             titleBeauticianLabel.font = UIFont.systemFont(ofSize: 22)
         }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        customerInfos = [cuInfo]()
+        filteredCuInfos = [cuInfo]()
+        let refCustomer : DatabaseReference! = Database.database().reference().child("customer")
+        refCustomer.queryOrderedByKey().observe(.childAdded, with: {(snapshot) in
+            var customerItem : cuInfo = cuInfo(key: "", name: "", phone: "", date: "", service: "", price: "", beautician: "", imagePath: "", payment: "")
+            if let dictionaryData = snapshot.value as? [String:AnyObject]{
+                
+                var serviceItemArrayStr = String()
+                
+                for item in dictionaryData{
+                    customerItem.key = snapshot.key
+                    switch item.key {
+                    case "name":
+                        customerItem.name = item.value as! String
+                    case "phone":
+                        customerItem.phone = item.value as! String
+                    case "date":
+                        customerItem.date = item.value as! String
+                    case "service":
+                        serviceItemArrayStr = (snapshot.childSnapshot(forPath: "service").value as! [String]).joined(separator: "\r\n")
+                        customerItem.service = serviceItemArrayStr
+                    case "price":
+                        customerItem.price = item.value as! String
+                    case "beautician":
+                        customerItem.beautician = item.value as! String
+                    case "imagePath":
+                        customerItem.imagePath = item.value as! String
+                    case "payment":
+                        if (item.value as! String) == "cash" {
+                            customerItem.payment = "現金支付"
+                        } else if (item.value as! String) == "transfer" {
+                            customerItem.payment = "匯款支付"
+                        } else {
+                            customerItem.payment = "其他"
+                        }
+                    default:
+                        break
+                    }
+                }
+                self.customerInfos.append(customerItem)
+            }
+            if self.aSearchBar.text! == ""{
+                self.filteredCuInfos = self.customerInfos
+                if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yy/MM/dd HH:mm"
+                    formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                    let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                    let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                    self.filteredCuInfos = self.filteredCuInfos.filter( {
+                        
+                        let compaerDate = formatter.date(from: $0.date)
+                        if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                            return true
+                        }
+                        else {
+                            return false
+                        }
+                    } )
+                    
+                    self.dataCountLabel.text = String(self.filteredCuInfos.count)
+                    self.aTableView.reloadData()
+                }
+            }
+            else {
+                
+                switch self.aSearchBar.selectedScopeButtonIndex {
+                case 0:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.name.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                case 1:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.phone.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                case 2:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.service.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                case 3:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.price.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                case 4:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.beautician.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                default:
+                    break
+                }
+            }
+            self.dataCountLabel.text = String(self.filteredCuInfos.count)
+            self.aTableView.reloadData()
+        })
+        
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -954,5 +1101,179 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
+    }
+    @objc func tapDeleteButton(sender: UIButton) {
+        let alert = UIAlertController(title: "確認", message: "確定要刪除此筆歷史紀錄?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "確認", style: .default, handler: {action in
+            let desertRef = Storage.storage().reference().child("image").child(self.filteredCuInfos[sender.tag].imagePath)
+            desertRef.delete(completion: { (error) in
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    //delete successful !
+                }
+            })
+            
+            Database.database().reference().child("customer").child(self.filteredCuInfos[sender.tag].key).removeValue()
+            self.customerInfos.remove(at: sender.tag)
+            self.filteredCuInfos = self.customerInfos
+            if self.aSearchBar.text! == ""{
+                self.filteredCuInfos = self.customerInfos
+                if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yy/MM/dd HH:mm"
+                    formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                    let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                    let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                    self.filteredCuInfos = self.filteredCuInfos.filter( {
+                        
+                        let compaerDate = formatter.date(from: $0.date)
+                        if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                            return true
+                        }
+                        else {
+                            return false
+                        }
+                    } )
+                    
+                    self.dataCountLabel.text = String(self.filteredCuInfos.count)
+                    self.aTableView.reloadData()
+                }
+            }
+            else {
+                
+                switch self.aSearchBar.selectedScopeButtonIndex {
+                case 0:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.name.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                case 1:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.phone.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                case 2:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.service.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                case 3:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.price.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                case 4:
+                    self.filteredCuInfos = self.customerInfos.filter( {$0.beautician.lowercased().contains(self.aSearchBar.text!.lowercased())} )
+                    if self.timePeriodStartButton.currentTitle != "開始" && self.timePeriodEndButton.currentTitle != "結束"{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yy/MM/dd HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "UTC") as! TimeZone
+                        let dateStart : NSDate = formatter.date(from: self.timePeriodStartButton.currentTitle ?? "0") as! NSDate
+                        let dateEnd : NSDate = formatter.date(from: self.timePeriodEndButton.currentTitle ?? "0") as! NSDate
+                        self.filteredCuInfos = self.filteredCuInfos.filter( {
+                            
+                            let compaerDate = formatter.date(from: $0.date)
+                            if dateStart.earlierDate(compaerDate!) == dateStart as Date && dateEnd.laterDate(compaerDate!) == dateEnd as Date{
+                                return true
+                            }
+                            else {
+                                return false
+                            }
+                        } )
+                        
+                        self.aTableView.reloadData()
+                    }
+                default:
+                    break
+                }
+            }
+            self.aTableView.reloadData()
+            
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    @objc func tapEditButton(sender: UIButton) {
+        self.performSegue(withIdentifier: "sendEditHistory", sender: sender.tag)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let tag = sender as! Int
+        let controller = segue.destination as! EditHistoryViewController
+        
+        controller.carryInfo.key = self.filteredCuInfos[tag].key
+        controller.carryInfo.name = self.filteredCuInfos[tag].name
+        controller.carryInfo.phone = self.filteredCuInfos[tag].phone
+        controller.carryInfo.date = self.filteredCuInfos[tag].date
+        controller.carryInfo.service = self.filteredCuInfos[tag].service
+        controller.carryInfo.price = self.filteredCuInfos[tag].price
+        controller.carryInfo.beautician = self.filteredCuInfos[tag].beautician
+        controller.carryInfo.imagePath = self.filteredCuInfos[tag].imagePath
     }
 }
