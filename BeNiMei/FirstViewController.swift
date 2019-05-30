@@ -255,6 +255,17 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         pathRef.getData(maxSize: 1*5120*5120) { (data, error) in
             if let error = error {
                 print(error)
+                
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.showImageView.isHidden = true
+                self.DarkBackgroundImageView.isHidden = true
+                let alertController = UIAlertController(title: "圖片讀取失敗！",
+                                                        message: nil, preferredStyle: .alert)
+                self.present(alertController, animated: true, completion: nil)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                    self.presentedViewController?.dismiss(animated: false, completion: nil)
+                }
             }
             else{
                 self.activityIndicator.stopAnimating()
@@ -280,6 +291,17 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         pathRef.getData(maxSize: 1*5120*5120) { (data, error) in
             if let error = error {
                 print(error)
+                
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.showImageView.isHidden = true
+                self.DarkBackgroundImageView.isHidden = true
+                let alertController = UIAlertController(title: "圖片讀取失敗！",
+                                                        message: nil, preferredStyle: .alert)
+                self.present(alertController, animated: true, completion: nil)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                    self.presentedViewController?.dismiss(animated: false, completion: nil)
+                }
             }
             else{
                 self.activityIndicator.stopAnimating()
