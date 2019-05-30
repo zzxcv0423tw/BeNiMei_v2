@@ -235,6 +235,13 @@ class EditItemViewController: UIViewController, UITableViewDelegate, UITableView
         cell.editItemButton.tag = indexPath.row
         cell.editItemButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         
+        if typeSegFlag == 1 {
+            cell.deleteItemButton.isHidden = true
+        }
+        else {
+            cell.deleteItemButton.isHidden = false
+        }
+        
         return cell
     }
     @objc func tapDeleteButton(sender: UIButton){

@@ -21,7 +21,9 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var beauticianButton : UIButton!
     @IBOutlet weak var paymentSwitch : UISwitch!
     @IBOutlet weak var photoImageView : UIImageView!
+    @IBOutlet weak var remarkImageView: UIImageView!
     @IBOutlet weak var darkBackgroundImageView: UIImageView!
+    @IBOutlet weak var remaekTV: UITextView!
     
     struct cuInfo {
         var key = String()
@@ -33,11 +35,13 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
         var beautician = String()
         var payment = String()
         var imagePath = String()
+        var imagePath2 = String()
+        var remark = String()
     }
     
+    var whichIVtap = 0
     var pickerSelectedBeautician = String()
     var beauticians = [String]()
-    var hasImageFlag = 0
     var carryInfo = cuInfo()
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -54,6 +58,7 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
         serviceTV.text = carryInfo.service
         priceTF.text = carryInfo.price
         beauticianButton.setTitle(carryInfo.beautician, for: .normal)
+        remaekTV.text = carryInfo.remark
         if carryInfo.payment == "cash" {
             paymentSwitch.setOn(false, animated: false)
         }else{
@@ -69,8 +74,20 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
                 self.photoImageView.image = UIImage(data: data!)
             }
         }
+        let refImage2 = Storage.storage().reference().child("image/\(self.carryInfo.imagePath2)")
+        refImage2.getData(maxSize: 1*5120*5120) { (data, error) in
+            if let error = error{
+                print(error)
+            }
+            else {
+                self.remarkImageView.image = UIImage(data: data!)
+            }
+        }
+        
         photoImageView.isUserInteractionEnabled = true
         photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeImage)))
+        remarkImageView.isUserInteractionEnabled = true
+        remarkImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeImage2)))
         
         let refBeautician  = Database.database().reference().child("beautician")
         refBeautician.queryOrderedByKey().observe(.childAdded) { (snapshot) in
@@ -93,13 +110,23 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
             priceTF.font = UIFont.systemFont(ofSize: 27)
             beauticianButton.titleLabel?.font = UIFont.systemFont(ofSize: 27)
             titleLabel.font = UIFont.systemFont(ofSize: 27)
+            remaekTV.font = UIFont.systemFont(ofSize: 27)
         }
         
         
         
     }
     @IBAction func changeImage(_ sender: Any){
+        whichIVtap = 0
         let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
+    }
+    @IBAction func changeImage2(_ sender: Any){
+        whichIVtap = 1
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true, completion: nil)
     }
@@ -113,8 +140,12 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
             selectedImageFormPicker = originalImage
         }
         if let selectedImage = selectedImageFormPicker {
-            photoImageView.image = selectedImage
-            hasImageFlag = 1
+            if whichIVtap == 0 {
+                photoImageView.image = selectedImage
+            }
+            else {
+                remarkImageView.image = selectedImage
+            }
         }
         picker.dismiss(animated: true, completion: nil)
     }
@@ -190,11 +221,10 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
         let alert = UIAlertController(title: "確認", message: "確定修改歷史紀錄？", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "送出", style: .default, handler: { (action) in
-            if self.hasImageFlag == 1 {
                 let checkPrice = self.priceTF.text
                 if (checkPrice?.isInt)! {
                     self.darkBackgroundImageView.layer.zPosition = 4
-                    self.darkBackgroundImageView.isHighlighted = false
+                    self.darkBackgroundImageView.isHidden = false
                     self.activityIndicator.layer.zPosition = 5
                     self.activityIndicator.center = self.view.center
                     self.activityIndicator.hidesWhenStopped = true
@@ -204,6 +234,7 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
                     UIApplication.shared.beginIgnoringInteractionEvents()
                     
                     let storageRef = Storage.storage().reference().child("image").child(self.carryInfo.imagePath)
+                    let storageRef2 = Storage.storage().reference().child("image").child(self.carryInfo.imagePath2)
                     if let uploadData = self.photoImageView.image!.pngData() {
                         storageRef.putData(uploadData, metadata: nil, completion: { (metadata, pError) in
                             if pError != nil {
@@ -215,54 +246,70 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
                                     print(errSSLProtocol)
                                 }
                                 else {
-                                    var itemInfo : [String : AnyObject] = [String : AnyObject]()
-                                    itemInfo["name"] = self.customerNameTF.text as AnyObject
-                                    itemInfo["phone"] = self.customerPhoneTF.text as AnyObject
-                                    itemInfo["date"] = self.dateButton.currentTitle as AnyObject
-                                    //itemInfo[]
-                                    itemInfo["price"] = self.priceTF.text as AnyObject
-                                    itemInfo["beautician"] = self.beauticianButton.currentTitle as AnyObject
-                                    if self.paymentSwitch.isOn{
-                                        itemInfo["payment"] = "transfer" as AnyObject
-                                    }
-                                    else {
-                                        itemInfo["payment"] = "cash" as AnyObject
-                                    }
-                                    var serviceArray : [String.SubSequence] = []
-                                    if self.serviceTV.text.contains("\r\n") {
-                                        serviceArray = self.serviceTV.text.split(separator: "\r\n")
-                                    } else {
-                                        serviceArray = self.serviceTV.text.split(separator: "\n")
-                                    }
-                                    var itemServiceInfo : [String : AnyObject] = [String : AnyObject]()
-                                    var index = 0
-                                    for eachService in serviceArray {
-                                        itemServiceInfo[String(index)] = eachService as AnyObject
-                                        index = index + 1
-                                    }
-                                    Database.database().reference().child("customer").child(self.carryInfo.key).child("service").removeValue()
-                                    let itemServiceInfoRef = Database.database().reference().child("customer").child(self.carryInfo.key).child("service")
-                                    let serviceInfoRef = Database.database().reference().child("customer").child(itemServiceInfoRef.key ?? "000")
-                                    itemServiceInfoRef.updateChildValues(itemServiceInfo){(err,reff) in
-                                        if err != nil{
-                                            print("err: \(err!)")
-                                            return
-                                        }
+                                    if let uploadData2 = self.remarkImageView.image!.pngData() {
+                                        storageRef2.putData(uploadData2, metadata: nil, completion: {(metadata2, lError) in
+                                            if lError != nil {
+                                                print(lError as Any)
+                                                return
+                                            }
+                                            storageRef2.downloadURL(completion: { (url2, error2) in
+                                                if let error2 = error2 {
+                                                    print(errSSLProtocol)
+                                                }
+                                                else {
+                                                    var itemInfo : [String : AnyObject] = [String : AnyObject]()
+                                                    itemInfo["name"] = self.customerNameTF.text as AnyObject
+                                                    itemInfo["phone"] = self.customerPhoneTF.text as AnyObject
+                                                    itemInfo["date"] = self.dateButton.currentTitle as AnyObject
+                                                    itemInfo["price"] = self.priceTF.text as AnyObject
+                                                    itemInfo["beautician"] = self.beauticianButton.currentTitle as AnyObject
+                                                    itemInfo["remark"] = self.remaekTV.text as AnyObject
+                                                    if self.paymentSwitch.isOn{
+                                                        itemInfo["payment"] = "transfer" as AnyObject
+                                                    }
+                                                    else {
+                                                        itemInfo["payment"] = "cash" as AnyObject
+                                                    }
+                                                    var serviceArray : [String.SubSequence] = []
+                                                    if self.serviceTV.text.contains("\r\n") {
+                                                        serviceArray = self.serviceTV.text.split(separator: "\r\n")
+                                                    } else {
+                                                        serviceArray = self.serviceTV.text.split(separator: "\n")
+                                                    }
+                                                    var itemServiceInfo : [String : AnyObject] = [String : AnyObject]()
+                                                    var index = 0
+                                                    for eachService in serviceArray {
+                                                        itemServiceInfo[String(index)] = eachService as AnyObject
+                                                        index = index + 1
+                                                    }
+                                                    Database.database().reference().child("customer").child(self.carryInfo.key).child("service").removeValue()
+                                                    let itemServiceInfoRef = Database.database().reference().child("customer").child(self.carryInfo.key).child("service")
+                                                    let serviceInfoRef = Database.database().reference().child("customer").child(itemServiceInfoRef.key ?? "000")
+                                                    itemServiceInfoRef.updateChildValues(itemServiceInfo){(err,reff) in
+                                                        if err != nil{
+                                                            print("err: \(err!)")
+                                                            return
+                                                        }
+                                                    }
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    let childRef = Database.database().reference().child("customer").child(self.carryInfo.key)
+                                                    let serviceInfoReference = Database.database().reference().child("customer").child(childRef.key ?? "000")
+                                                    
+                                                    serviceInfoReference.updateChildValues(itemInfo){(err,reff) in
+                                                        if err != nil{
+                                                            print("err: \(err!)")
+                                                            return
+                                                        }
+                                                        //print(reff.description())
+                                                    }
+                                                }
+                                            })
+                                        })
                                     }
                                     
-                                    
-                                    
-                                    
-                                    let childRef = Database.database().reference().child("customer").child(self.carryInfo.key)
-                                    let serviceInfoReference = Database.database().reference().child("customer").child(childRef.key ?? "000")
-                                    
-                                    serviceInfoReference.updateChildValues(itemInfo){(err,reff) in
-                                        if err != nil{
-                                            print("err: \(err!)")
-                                            return
-                                        }
-                                        //print(reff.description())
-                                    }
                                     
                                 }
                                 self.activityIndicator.startAnimating()
@@ -278,76 +325,7 @@ class EditHistoryViewController: UIViewController, UIImagePickerControllerDelega
                     denySubmitAlert.addAction(UIAlertAction(title: "確認", style: .cancel, handler: nil))
                     self.present(denySubmitAlert, animated: true, completion: nil)
                 }
-            }
-            else {
-                
-                let checkPrice = self.priceTF.text
-                if (checkPrice?.isInt)! {
-                    self.darkBackgroundImageView.layer.zPosition = 4
-                    self.darkBackgroundImageView.isHidden = false
-                    self.activityIndicator.layer.zPosition = 5
-                    self.activityIndicator.center = self.view.center
-                    self.activityIndicator.hidesWhenStopped = true
-                    self.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-                    self.view.addSubview(self.activityIndicator)
-                    self.activityIndicator.startAnimating()
-                    UIApplication.shared.beginIgnoringInteractionEvents()
-                    
-                    var itemInfo : [String : AnyObject] = [String : AnyObject]()
-                    itemInfo["name"] = self.customerNameTF.text as AnyObject
-                    itemInfo["phone"] = self.customerPhoneTF.text as AnyObject
-                    itemInfo["date"] = self.dateButton.currentTitle as AnyObject
-                    //itemInfo[]
-                    itemInfo["price"] = self.priceTF.text as AnyObject
-                    itemInfo["beautician"] = self.beauticianButton.currentTitle as AnyObject
-                    if self.paymentSwitch.isOn{
-                        itemInfo["payment"] = "transfer" as AnyObject
-                    }
-                    else {
-                        itemInfo["payment"] = "cash" as AnyObject
-                    }
-                    
-                    let serviceArray = self.serviceTV.text.split(separator: "\n")
-                    var itemServiceInfo : [String : AnyObject] = [String : AnyObject]()
-                    var index = 0
-                    for eachService in serviceArray {
-                        itemServiceInfo[String(index)] = eachService as AnyObject
-                        index = index + 1
-                    }
-                    Database.database().reference().child("customer").child(self.carryInfo.key).child("service").removeValue()
-                    let itemServiceInfoRef = Database.database().reference().child("customer").child(self.carryInfo.key).child("service")
-                    let serviceInfoRef = Database.database().reference().child("customer").child(itemServiceInfoRef.key ?? "000")
-                    itemServiceInfoRef.updateChildValues(itemServiceInfo){(err,reff) in
-                        if err != nil{
-                            print("err: \(err!)")
-                            return
-                        }
-                    }
-                    
-                    
-                    
-                    
-                    let childRef = Database.database().reference().child("customer").child(self.carryInfo.key)
-                    let serviceInfoReference = Database.database().reference().child("customer").child(childRef.key ?? "000")
-                    
-                    serviceInfoReference.updateChildValues(itemInfo){(err,reff) in
-                        if err != nil{
-                            print("err: \(err!)")
-                            return
-                        }
-                        //print(reff.description())
-                    }
-                    self.activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                    self.darkBackgroundImageView.isHidden = true
-                    self.navigationController?.popViewController(animated: true)
-                }
-                else {
-                    let denySubmitAlert = UIAlertController(title: "錯誤", message: "價格欄位必須為數字！", preferredStyle: .alert)
-                    denySubmitAlert.addAction(UIAlertAction(title: "確認", style: .cancel, handler: nil))
-                    self.present(denySubmitAlert, animated: true, completion: nil)
-                }
-            }
+            
         }))
         self.present(alert, animated: true, completion: nil)
     }

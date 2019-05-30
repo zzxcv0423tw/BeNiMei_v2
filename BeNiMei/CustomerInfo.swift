@@ -119,6 +119,7 @@ class CustomerInfo: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     }
     @IBAction func uploadCustomerImage(_ sender: Any) {
         let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
         imagePicker.delegate = self
         //picker.allowsEditing = true
         

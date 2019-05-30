@@ -77,14 +77,11 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         showImageView.addGestureRecognizer(tapGesture)
         showImageView.isUserInteractionEnabled = true
+        
         if Auth.auth().currentUser?.email == "admin@admin.com" {
             let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(callEditItemView))
             self.navigationItem.rightBarButtonItem = editButton
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        }
-        else{
-            
-            self.tabBarController?.viewControllers?.remove(at: 2)
         }
         
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){

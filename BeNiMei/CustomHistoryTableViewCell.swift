@@ -17,9 +17,11 @@ class CustomHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var beautician: UILabel!
     @IBOutlet weak var showPictureButton: UIButton!
+    @IBOutlet weak var showAfterPictureButton: UIButton!
     @IBOutlet weak var paymentLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var remarkLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

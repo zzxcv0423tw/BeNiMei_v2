@@ -8,30 +8,92 @@
 
 import UIKit
 import Firebase
-class MyProfileViewController: UIViewController {
+class MyProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var profileEmailLabel: UILabel!
+    @IBOutlet weak var profileNameLabel: UILabel!
+    
+    struct beauticianInfo {
+        var key = String()
+        var name = String()
+        var email = String()
+        var imagePath = String()
+    }
+    
+    var currentBeautician = beauticianInfo()
+    var beauticianInfos = [beauticianInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         profileImageView.layer.cornerRadius = profileImageView.frame.width/2
         profileImageView.layer.masksToBounds = true
-        profileImageView.layer.borderWidth = 1.5
+        profileImageView.layer.borderWidth = 3
+        profileImageView.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         
-        profileImageView.layer.borderColor = UIColor(red: 0.49, green: 0.372, blue: 0.275, alpha: 1).cgColor
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeBeauticianImage)))
+        
         let navBackgroundImage = UIImage(named: "topbar_1200_120")
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)
-        profileEmailLabel.text = Auth.auth().currentUser?.email
-        if Auth.auth().currentUser?.email != "admin@admin.com"{
-            profileImageView.image = UIImage(named: "user")
+        
+        let ref = Database.database().reference().child("beautician")
+        beauticianInfos = []
+        ref.queryOrderedByKey().observe(.childAdded) { (snapshot) in
+            var beautician = beauticianInfo()
+            if let dictionaryData = snapshot.value as? [String:AnyObject]{
+                beautician.key = snapshot.key
+                for item in dictionaryData{
+                    switch item.key{
+                    case "name":
+                        beautician.name = item.value as! String
+                    case "email":
+                        beautician.email = item.value as! String
+                    case "imagePath":
+                        beautician.imagePath = item.value as! String
+                    default:
+                        break
+                    }
+                }
+                self.beauticianInfos.append(beautician)
+            }
+            
+            if Auth.auth().currentUser?.email != "admin@admin.com"{
+                self.profileImageView.image = UIImage(named: "user")
+            }
+            else {
+                self.profileImageView.image = UIImage(named: "ManagerUser")
+            }
+            
+            for item in self.beauticianInfos {
+                if (Auth.auth().currentUser?.email == item.email){
+                    self.currentBeautician.key = item.key
+                    self.currentBeautician.name = item.name
+                    self.currentBeautician.email = item.email
+                    self.currentBeautician.imagePath = item.imagePath
+                    
+                    self.profileNameLabel.text = self.currentBeautician.name
+                    self.profileEmailLabel.text = self.currentBeautician.email
+                    
+                    let refImage = Storage.storage().reference().child("image/\(self.currentBeautician.imagePath)")
+                    refImage.getData(maxSize: 1*5120*5120, completion: { (data, error) in
+                        if let error = error{
+                            print(error)
+                        }
+                        else {
+                            self.profileImageView.image = UIImage(data:data!)
+                        }
+                    })
+                }
+            }
+            
         }
-        else {
-            profileImageView.image = UIImage(named: "ManagerUser")
-        }
+        
         
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
             profileEmailLabel.font = UIFont.systemFont(ofSize: 27)
+            profileNameLabel.font = UIFont.systemFont(ofSize: 27)
         }
     }
     @IBAction func logOut(_ sender: Any) {
@@ -45,5 +107,42 @@ class MyProfileViewController: UIViewController {
             }
         }
     }
-    
+    @IBAction func changeBeauticianImage(_ sender: Any){
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        //picker.allowsEditing = true
+        
+        present(picker, animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImageFormPicker: UIImage?
+        
+        if let editedImage = info[.editedImage] as? UIImage {
+            selectedImageFormPicker = editedImage
+        }
+        else if let originalImage = info[.originalImage] as? UIImage {
+            selectedImageFormPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFormPicker {
+            profileImageView.image = selectedImage
+            let storageRef = Storage.storage().reference().child("image").child(self.currentBeautician.imagePath)
+            if let uploadData = self.profileImageView.image!.pngData() {
+                storageRef.putData(uploadData, metadata: nil, completion: {(metadata, error) in
+                    if error != nil{
+                        print(error)
+                        return
+                    }
+                })
+            }
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated:true, completion: nil)
+    }
 }

@@ -32,7 +32,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         addServiceImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addServiceImage)))
         
         addServiceDescription.delegate = self
-        
+        Auth.auth().currentUser
         
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
             addItemName.font = UIFont.systemFont(ofSize: 27)
@@ -64,6 +64,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func addServiceImage(_ sender: Any) {
         let picker = UIImagePickerController()
+        picker.allowsEditing = true
         picker.delegate = self
         //picker.allowsEditing = true
         

@@ -32,6 +32,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var titleContentLabel: UILabel!
     @IBOutlet weak var titlePriceLabel: UILabel!
     @IBOutlet weak var titleBeauticianLabel: UILabel!
+    
     struct cuInfo {
         var key = String()
         var name = String()
@@ -41,10 +42,19 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         var price = String()
         var beautician = String()
         var imagePath = String()
+        var imagePath2 = String()
         var payment = String()
+        var remark = String()
+    }
+    struct beauticianInfo {
+        var key = String()
+        var name = String()
+        var email = String()
+        var imagePath = String()
     }
     
-    
+    var currentBeautician = beauticianInfo()
+    var beauticianInfos = [beauticianInfo]()
     var customerInfos : [cuInfo] = [cuInfo]()
     var filteredCuInfos = [cuInfo]()
     var searchController = UISearchController(searchResultsController: nil)
@@ -67,6 +77,15 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomHistoryTableViewCell
         
+        if Auth.auth().currentUser?.email == "admin@admin.com" {
+            cell.editButton.isHidden = false
+            cell.deleteButton.isHidden = false
+        }
+        else {
+            cell.editButton.isHidden = true
+            cell.deleteButton.isHidden = true
+        }
+        
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
             cell.name.font = UIFont.systemFont(ofSize: 22)
             cell.phone.font = UIFont.systemFont(ofSize: 22)
@@ -75,7 +94,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.price.font = UIFont.systemFont(ofSize: 22)
             cell.beautician.font = UIFont.systemFont(ofSize: 22)
             cell.showPictureButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+            cell.showAfterPictureButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
             cell.paymentLabel.font = UIFont.systemFont(ofSize: 22)
+            cell.remarkLabel.font = UIFont.systemFont(ofSize: 22)
         }
         cell.name.text = filteredCuInfos[indexPath.row].name
         cell.phone.text = filteredCuInfos[indexPath.row].phone
@@ -83,8 +104,11 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.service.text = filteredCuInfos[indexPath.row].service
         cell.price.text = filteredCuInfos[indexPath.row].price
         cell.beautician.text = filteredCuInfos[indexPath.row].beautician
+        cell.remarkLabel.text = filteredCuInfos[indexPath.row].remark
         cell.showPictureButton.tag = indexPath.row
         cell.showPictureButton.addTarget(self, action: #selector(showImage), for: .touchUpInside)
+        cell.showAfterPictureButton.tag = indexPath.row
+        cell.showAfterPictureButton.addTarget(self, action: #selector(showRemarkImage), for: .touchUpInside)
         cell.paymentLabel.text = filteredCuInfos[indexPath.row].payment
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchUpInside)
@@ -105,6 +129,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        let tapGestureD = UITapGestureRecognizer(target: self, action: #selector(dBGTapped))
         showImageView.addGestureRecognizer(tapGesture)
         showImageView.isUserInteractionEnabled = true
         
@@ -123,12 +148,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         aTableView.delegate = self
         aTableView.dataSource = self
         
-        let statisticsButton = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(callStatisticsView))
-        self.navigationItem.rightBarButtonItem = statisticsButton
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        let satisfactionButton = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(callSatisfactionView))
-        self.navigationItem.leftBarButtonItem = satisfactionButton
-        //self.navigationItem.leftBarButtonItem?.t
+        if Auth.auth().currentUser?.email == "admin@admin.com" {
+            let statisticsButton = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(callStatisticsView))
+            self.navigationItem.rightBarButtonItem = statisticsButton
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+            let satisfactionButton = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(callSatisfactionView))
+            self.navigationItem.leftBarButtonItem = satisfactionButton
+            //self.navigationItem.leftBarButtonItem?.t
+        }
         
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
             aSearchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 22)], for: .normal)
@@ -146,11 +173,48 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     override func viewDidAppear(_ animated: Bool) {
+        
+        let ref = Database.database().reference().child("beautician")
+        beauticianInfos = []
+        ref.queryOrderedByKey().observe(.childAdded) { (snapshot) in
+            var beautician = beauticianInfo()
+            if let dictionaryData = snapshot.value as? [String:AnyObject]{
+                beautician.key = snapshot.key
+                for item in dictionaryData{
+                    switch item.key{
+                    case "name":
+                        beautician.name = item.value as! String
+                    case "email":
+                        beautician.email = item.value as! String
+                    case "imagePath":
+                        beautician.imagePath = item.value as! String
+                    default:
+                        break
+                    }
+                }
+                print("beautician")
+                print(beautician)
+                self.beauticianInfos.append(beautician)
+            }
+            print("beauticianInfos : ")
+            print(self.beauticianInfos)
+            for item in self.beauticianInfos {
+                if (Auth.auth().currentUser?.email == item.email) {
+                    self.currentBeautician.key = item.key
+                    self.currentBeautician.name = item.name
+                    self.currentBeautician.email = item.email
+                    self.currentBeautician.imagePath = item.imagePath
+                }
+            }
+            print("currentBeautician : ")
+            print(self.currentBeautician)
+        }
+        
         customerInfos = [cuInfo]()
         filteredCuInfos = [cuInfo]()
         let refCustomer : DatabaseReference! = Database.database().reference().child("customer")
         refCustomer.queryOrderedByKey().observe(.childAdded, with: {(snapshot) in
-            var customerItem : cuInfo = cuInfo(key: "", name: "", phone: "", date: "", service: "", price: "", beautician: "", imagePath: "", payment: "")
+            var customerItem : cuInfo = cuInfo(key: "", name: "", phone: "", date: "", service: "", price: "", beautician: "", imagePath: "",imagePath2: "", payment: "", remark: "")
             if let dictionaryData = snapshot.value as? [String:AnyObject]{
                 
                 var serviceItemArrayStr = String()
@@ -173,6 +237,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         customerItem.beautician = item.value as! String
                     case "imagePath":
                         customerItem.imagePath = item.value as! String
+                    case "imagePath2":
+                        customerItem.imagePath2 = item.value as! String
                     case "payment":
                         if (item.value as! String) == "cash" {
                             customerItem.payment = "現金支付"
@@ -181,11 +247,16 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         } else {
                             customerItem.payment = "其他"
                         }
+                    case "remark":
+                        customerItem.remark = item.value as! String
                     default:
                         break
                     }
                 }
                 self.customerInfos.append(customerItem)
+            }
+            if Auth.auth().currentUser?.email != "admin@admin.com"{
+                self.customerInfos = self.customerInfos.filter( {$0.beautician.lowercased().contains(self.currentBeautician.name.lowercased())} )
             }
             if self.aSearchBar.text! == ""{
                 self.filteredCuInfos = self.customerInfos
@@ -1006,12 +1077,43 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
+    @objc func showRemarkImage(sender: UIButton){
+        showImageView.layer.zPosition = 6
+        self.DarkBackgroundImageView.layer.zPosition = 4
+        self.DarkBackgroundImageView.isHidden = false
+        self.activityIndicator.layer.zPosition = 5
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        let pathRef = Storage.storage().reference().child("image/\(self.customerInfos[sender.tag].imagePath2)")
+        pathRef.getData(maxSize: 1*5120*5120) { (data, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.showImageView.isHidden = false
+                self.showImageView.image = UIImage(data:data!)
+            }
+        }
+    }
     @objc func imageTapped(gesture: UIGestureRecognizer){
         if let imageView = gesture.view as? UIImageView{
             showImageView.isHidden = true
             showImageView.image = nil
             self.DarkBackgroundImageView.isHidden = true
         }
+    }
+    @objc func dBGTapped(gesture: UIGestureRecognizer){
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+        self.showImageView.isHidden = true
+        self.DarkBackgroundImageView.isHidden = true
     }
     @IBAction func exportClick(_ sender: Any) {
         var outputData : String = "客戶, 手機, 日期, 服務, 價格, 美容師, 付款方式\r\n"
@@ -1036,21 +1138,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             outputData.append(eachdata.payment)
             outputData.append("\r\n")
         }
-        //print(outputData)
-        /*
-        let activityViewController = UIActivityViewController(activityItems: [outputData], applicationActivities: nil)
-        present(activityViewController, animated: true, completion: nil)
         
-        let filename = getDocumentsDirectory().appendingPathComponent("BeNiMei_Data.csv")
-        do {
-            try outputData.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
-            print(filename)
-            print("Output Success!")
-        } catch {
-            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
-            print("Output ERROR!!!!!")
-        }
-        */
         let fileName = "BeNiMei.csv"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
         
@@ -1106,6 +1194,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let alert = UIAlertController(title: "確認", message: "確定要刪除此筆歷史紀錄?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "確認", style: .default, handler: {action in
+            
+            //刪除圖片
             let desertRef = Storage.storage().reference().child("image").child(self.filteredCuInfos[sender.tag].imagePath)
             desertRef.delete(completion: { (error) in
                 if let error = error {
@@ -1115,8 +1205,18 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                     //delete successful !
                 }
             })
+            let desertRef2 = Storage.storage().reference().child("image").child(self.filteredCuInfos[sender.tag].imagePath2)
+            desertRef2.delete(completion: { (error) in
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    //delete successful !
+                }
+            })
             
             Database.database().reference().child("customer").child(self.filteredCuInfos[sender.tag].key).removeValue()
+            
             self.customerInfos.remove(at: sender.tag)
             self.filteredCuInfos = self.customerInfos
             if self.aSearchBar.text! == ""{
@@ -1276,5 +1376,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         controller.carryInfo.beautician = self.filteredCuInfos[tag].beautician
         controller.carryInfo.imagePath = self.filteredCuInfos[tag].imagePath
         controller.carryInfo.payment = self.filteredCuInfos[tag].payment
+        controller.carryInfo.remark = self.filteredCuInfos[tag].remark
+        controller.carryInfo.imagePath2 = self.filteredCuInfos[tag].imagePath2
     }
 }
