@@ -27,6 +27,12 @@ class MyProfileViewController: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if Auth.auth().currentUser?.email != "admin@admin.com"{
+            let deleteAccountBotton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(tapDeleteAccountButton))
+            self.navigationItem.rightBarButtonItem = deleteAccountBotton
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        }
+        
         profileImageView.layer.cornerRadius = profileImageView.frame.width/2
         profileImageView.layer.masksToBounds = true
         profileImageView.layer.borderWidth = 3
@@ -38,6 +44,12 @@ class MyProfileViewController: UIViewController, UIImagePickerControllerDelegate
         let navBackgroundImage = UIImage(named: "topbar_1200_120")
         self.navigationController!.navigationBar.setBackgroundImage(navBackgroundImage, for: .default)
         
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+            profileEmailLabel.font = UIFont.systemFont(ofSize: 27)
+            profileNameLabel.font = UIFont.systemFont(ofSize: 27)
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
         let ref = Database.database().reference().child("beautician")
         beauticianInfos = []
         ref.queryOrderedByKey().observe(.childAdded) { (snapshot) in
@@ -65,7 +77,7 @@ class MyProfileViewController: UIViewController, UIImagePickerControllerDelegate
             else {
                 self.profileImageView.image = UIImage(named: "ManagerUser")
             }
-            
+            print(self.beauticianInfos)
             for item in self.beauticianInfos {
                 if (Auth.auth().currentUser?.email == item.email){
                     self.currentBeautician.key = item.key
@@ -89,13 +101,8 @@ class MyProfileViewController: UIViewController, UIImagePickerControllerDelegate
             }
             
         }
-        
-        
-        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
-            profileEmailLabel.font = UIFont.systemFont(ofSize: 27)
-            profileNameLabel.font = UIFont.systemFont(ofSize: 27)
-        }
     }
+    
     @IBAction func logOut(_ sender: Any) {
         if Auth.auth().currentUser != nil {
             do{
@@ -144,5 +151,37 @@ class MyProfileViewController: UIViewController, UIImagePickerControllerDelegate
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated:true, completion: nil)
+    }
+    @IBAction func tapDeleteAccountButton(_ sender: Any){
+        let alert = UIAlertController(title: "刪除帳戶", message: "確定要刪除現在登入的帳號嗎？", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "確定", style: .default, handler: { (action) in
+            var currentUser = Auth.auth().currentUser
+            currentUser?.delete { error in
+                if let error = error {
+                    print(error)
+                } else {
+                    
+                    let storageRef = Storage.storage().reference().child("image").child(self.currentBeautician.imagePath)
+                    storageRef.delete(completion: { (error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            //delete successful !
+                        }
+                    })
+                    
+                    let dbRef = Database.database().reference().child("beautician").child(self.currentBeautician.key)
+                    dbRef.removeValue()
+                    
+                    
+                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "login")
+                    self.present(vc, animated: true, completion: nil)
+                }
+                
+            }
+        }))
+        present(alert, animated: true, completion: nil)
     }
 }

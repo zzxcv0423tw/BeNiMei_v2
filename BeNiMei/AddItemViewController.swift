@@ -20,6 +20,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var addServiceImageView: UIImageView!
     @IBOutlet weak var darkBackgroundImageView: UIImageView!
     @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     var ref: DatabaseReference! = Database.database().reference()
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
@@ -39,6 +41,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             addServicePrice.font = UIFont.systemFont(ofSize: 27)
             addServiceDescription.font = UIFont.systemFont(ofSize: 27)
             typeSegmentedControl.setTitleTextAttributes([.font:UIFont.systemFont(ofSize: 23)], for: .normal)
+            emailTextField.font = UIFont.systemFont(ofSize: 27)
+            passwordTextField.font = UIFont.systemFont(ofSize: 27)
         }
         
         // Do any additional setup after loading the view.
@@ -49,16 +53,22 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             addTypeflag = 0
             addServicePrice.isHidden = false
             addServiceDescription.isHidden = false
+            emailTextField.isHidden = true
+            passwordTextField.isHidden = true
         }
         else if sender.selectedSegmentIndex==1{
             addTypeflag = 1
             addServicePrice.isHidden = true
             addServiceDescription.isHidden = true
+            emailTextField.isHidden = false
+            passwordTextField.isHidden = false
         }
         else if sender.selectedSegmentIndex==2{
             addTypeflag = 2
             addServicePrice.isHidden = false
             addServiceDescription.isHidden = false
+            emailTextField.isHidden = true
+            passwordTextField.isHidden = true
         }
     }
     
@@ -172,9 +182,25 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "送出", style: .default, handler: { action in
                 
-                    if self.hasImageFlag == 0 {
-                        self.addServiceImageView.image = UIImage(named: "noun_Lost_file")
-                    }
+                if self.emailTextField.text == "" || self.passwordTextField.text == "" {
+                    let alertController = UIAlertController(title: "錯誤", message: "請確認電子信箱和密碼皆有填入", preferredStyle: .alert)
+                    
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                }
+                else if self.addItemName.text == ""{
+                    let alertController = UIAlertController(title: "錯誤", message: "請確認美容師名稱有填入", preferredStyle: .alert)
+                    
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
+                else {
+                    
                     self.darkBackgroundImageView.layer.zPosition = 4
                     self.darkBackgroundImageView.isHidden = false
                     self.activityIndicator.layer.zPosition = 5
@@ -184,44 +210,83 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                     self.view.addSubview(self.activityIndicator)
                     self.activityIndicator.startAnimating()
                     UIApplication.shared.beginIgnoringInteractionEvents()
-                    var imageUrl : String = String()
                     
-                    let storageRef = Storage.storage().reference().child("image").child("bea_\(uniqueString).png")
-                    if let uploadData = self.addServiceImageView.image!.pngData(){
-                        storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
-                            if error != nil{
-                                print(error)
-                                return
-                            }
-                            storageRef.downloadURL(completion: { (url, error) in
-                                if let error = error {
-                                    print(error)
-                                    return
+                    
+                    //寫入FireBase Auth
+                    Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
+                        
+                        if error == nil {
+                            print("You have successfully signed up")
+                            
+                            if Auth.auth().currentUser?.email != "admin@admin.com" {
+                                do{
+                                    try Auth.auth().signOut()
+                                    
+                                } catch let error as NSError {
+                                    print(error.localizedDescription)
                                 }
-                                else {
-                                    imageUrl = url?.absoluteString ?? "000"
-                                    var beauticianInfo : [String : AnyObject] = [String : AnyObject]()
-                                    beauticianInfo["name"] = self.addItemName.text as AnyObject
-                                    beauticianInfo["imagePath"] = ("bea_\(uniqueString).png") as AnyObject
-                                    
-                                    let childRef = self.ref.child("beautician").childByAutoId()
-                                    let beauticianInfoReference = self.ref.child("beautician").child(childRef.key ?? "000")
-                                    
-                                    beauticianInfoReference.updateChildValues(beauticianInfo){(err,reff) in
-                                        if err != nil{
-                                            print("err: \(err!)")
+                            }
+                            Auth.auth().signIn(withEmail: "admin@admin.com", password: "adminadmin", completion: nil)
+                            
+                            //Goes to the Setup page which lets the user take a photo for their profile picture and also chose a username
+                            let uniqueString = NSUUID().uuidString
+                            var image = self.addServiceImageView.image
+                            let storageRef = Storage.storage().reference().child("image").child("bea_\(uniqueString).png")
+                            if let uploadData = image?.pngData(){
+                                storageRef.putData(uploadData, metadata: nil, completion: {(metadata, error) in
+                                    if error != nil{
+                                        print(error)
+                                        return
+                                    }
+                                    storageRef.downloadURL(completion: { (url, error) in
+                                        if let error = error {
+                                            print(error)
                                             return
                                         }
-                                        //print(reff.description())
-                                    }
-                                }
-                                self.activityIndicator.stopAnimating()
-                                UIApplication.shared.endIgnoringInteractionEvents()
-                                self.darkBackgroundImageView.isHidden = true
-                                self.navigationController?.popViewController(animated: true)
-                            })
-                        })
+                                        else {
+                                            
+                                            
+                                            //寫入Firebase DataBase
+                                            var authInfo : [String : AnyObject] = [String : AnyObject]()
+                                            authInfo["name"] = self.addItemName.text as AnyObject
+                                            authInfo["email"] = self.emailTextField.text?.lowercased() as AnyObject
+                                            authInfo["imagePath"] = ("bea_\(uniqueString).png") as AnyObject
+                                            let ref: DatabaseReference! = Database.database().reference().child("beautician")
+                                            let childRef = ref.childByAutoId()
+                                            let authReference = ref.child(childRef.key ?? "000")
+                                            
+                                            authReference.updateChildValues(authInfo){ (err, reff) in
+                                                if err != nil{
+                                                    print("err: \(err)")
+                                                    return
+                                                }
+                                            }
+                                            
+                                        }
+                                        
+                                        self.activityIndicator.stopAnimating()
+                                        UIApplication.shared.endIgnoringInteractionEvents()
+                                        self.darkBackgroundImageView.isHidden = true
+                                        self.navigationController?.popViewController(animated: true)
+                                        
+                                    })
+                                })
+                            }
+                            
+                            
+                            
+                            
+                        } else {
+                            let alertController = UIAlertController(title: "錯誤", message: error?.localizedDescription, preferredStyle: .alert)
+                            
+                            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                            alertController.addAction(defaultAction)
+                            
+                            self.present(alertController, animated: true, completion: nil)
+                        }
                     }
+                }
+                
             }
             ))
             self.present(alert, animated: true, completion: nil)

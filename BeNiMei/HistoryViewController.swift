@@ -192,12 +192,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         break
                     }
                 }
-                print("beautician")
-                print(beautician)
                 self.beauticianInfos.append(beautician)
             }
-            print("beauticianInfos : ")
-            print(self.beauticianInfos)
             for item in self.beauticianInfos {
                 if (Auth.auth().currentUser?.email == item.email) {
                     self.currentBeautician.key = item.key
@@ -206,8 +202,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.currentBeautician.imagePath = item.imagePath
                 }
             }
-            print("currentBeautician : ")
-            print(self.currentBeautician)
         }
         
         customerInfos = [cuInfo]()

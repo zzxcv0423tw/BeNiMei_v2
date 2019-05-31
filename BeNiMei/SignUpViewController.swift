@@ -79,7 +79,7 @@ class SignUpViewController: UIViewController {
                                     //寫入Firebase DataBase
                                     var authInfo : [String : AnyObject] = [String : AnyObject]()
                                     authInfo["name"] = self.nameTextField.text as AnyObject
-                                    authInfo["email"] = self.emailTextField.text as AnyObject
+                                    authInfo["email"] = self.emailTextField.text?.lowercased() as AnyObject
                                     authInfo["imagePath"] = ("bea_\(uniqueString).png") as AnyObject
                                     let ref: DatabaseReference! = Database.database().reference().child("beautician")
                                     let childRef = ref.childByAutoId()
