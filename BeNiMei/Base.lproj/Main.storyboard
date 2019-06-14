@@ -2105,21 +2105,21 @@
                                                     <rect key="frame" x="15" y="11" width="345" height="133"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="分數" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-PS-Jv7">
-                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="5.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="15.5"/>
                                                             <color key="backgroundColor" red="0.95294117647058818" green="0.94117647058823528" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdy-4t-cTJ">
-                                                            <rect key="frame" x="0.0" y="12.5" width="345" height="26.5"/>
+                                                            <rect key="frame" x="0.0" y="22.5" width="345" height="26.5"/>
                                                             <color key="backgroundColor" red="0.98033843674456078" green="0.98227236099919413" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jbc-Jb-siw">
-                                                            <rect key="frame" x="0.0" y="46" width="345" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="56" width="345" height="20.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="原因" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LcZ-yc-jXH">
                                                                     <rect key="frame" x="0.0" y="0.0" width="115" height="20.5"/>
@@ -2145,7 +2145,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wZ4-IL-Z9K">
-                                                            <rect key="frame" x="0.0" y="73.5" width="345" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="83.5" width="345" height="20.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7W-ag-jU0">
                                                                     <rect key="frame" x="0.0" y="0.0" width="115" height="20.5"/>
@@ -2171,14 +2171,14 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="gYq-h1-YR4">
-                                                            <rect key="frame" x="0.0" y="101" width="345" height="32"/>
+                                                            <rect key="frame" x="0.0" y="111" width="345" height="22"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e0j-u3-X6B">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="165" height="32"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="165" height="22"/>
                                                                     <state key="normal" image="edit"/>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C6I-x0-AGl">
-                                                                    <rect key="frame" x="180" y="1" width="165" height="30"/>
+                                                                    <rect key="frame" x="180" y="0.0" width="165" height="22"/>
                                                                     <state key="normal" image="garbage"/>
                                                                 </button>
                                                             </subviews>

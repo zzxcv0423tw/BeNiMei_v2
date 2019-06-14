@@ -1132,7 +1132,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.DarkBackgroundImageView.isHidden = true
     }
     @IBAction func exportClick(_ sender: Any) {
-        var outputData : String = "客戶, 手機, 日期, 服務, 價格, 美容師, 付款方式\r\n"
+        var outputData : String = "客戶, 手機, 日期, 服務, 價格, 美容師, 付款方式, 註記\r\n"
         for eachdata in filteredCuInfos {
             outputData.append(eachdata.name)
             outputData.append(", ")
@@ -1152,6 +1152,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             outputData.append(eachdata.beautician)
             outputData.append(", ")
             outputData.append(eachdata.payment)
+            outputData.append(", ")
+            outputData.append(eachdata.remark)
             outputData.append("\r\n")
         }
         
